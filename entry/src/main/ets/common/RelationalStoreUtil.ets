@@ -25,4 +25,3 @@ export const testRecord = {
   'date' : Date.now(),  // date 从 1970-01-01 00:00:00 UTC 算起的秒数。
   'message' : ''
 }
-

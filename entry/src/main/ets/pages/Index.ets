@@ -1,3 +1,4 @@
+import AddRecordComponent from '../view/AddRecordComponent'
 import TitleComponent from '../view/TitleComponent'
 
 @Entry
@@ -9,6 +10,8 @@ struct Index {
   build() {
     Column() {
       TitleComponent()
+
+      AddRecordComponent()
     }
     .width('100%')
     .height('100%')

@@ -16,28 +16,6 @@ export default class EntryAbility extends UIAbility {
       store.executeSql(SQL_CREATE_RECORDS); // 创建RECORDS数据表
 
       // 这里执行数据库的增、删、改、查等操作
-
-      // 插入数据
-      store.insert('RECORDS', testRecord, (err, rowId) => {
-        if (err) {
-          console.error(`Failed to insert data. Code:${err.code}, message:${err.message}`);
-          return;
-        }
-        console.info(`Succeeded in inserting data. rowId:${rowId}`);
-      })
-
-      // 查询
-      // 创建表 RECORDS 的 predicates
-      let predicates = new relationalStore.RdbPredicates('RECORDS');
-      predicates.equalTo('habitId', '0'); // 匹配表 RECORDS 中 habitId 为 0 的字段
-      store.query(predicates, ['habitId', 'count', 'date', 'message'], (err, resultSet) => {
-        if (err) {
-          console.error(`Failed to query data. Code:${err.code}, message:${err.message}`);
-          return;
-        }
-        console.info(`resultSet column: ${resultSet.rowCount}`);
-        resultSet.close();
-      })
     });
   }
 
