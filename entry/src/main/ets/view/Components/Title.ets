@@ -1,4 +1,4 @@
-import { App_Title, FontSize, TitleBarStyle } from '../../common/Constants'
+import { App_Title, FontSize, TitleBarStyle } from '../../common/constants/Constants'
 
 @Preview
 @Component
