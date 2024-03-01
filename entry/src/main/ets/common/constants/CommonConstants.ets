@@ -3,7 +3,7 @@
  */
 export class CommonConstants {
   /**
-   * database preference id.
+   * 数据库首选项 ID。
    */
   static readonly PREFERENCE_ID = 'storageId';
   /**
