@@ -9,7 +9,7 @@ export class CommonConstants {
   /**
    * database alarm data key.
    */
-  static readonly ALARM_KEY = 'alarmData';
+  static readonly ALARM_KEY = 'habitData';
   /**
    * common full length
    */
@@ -107,14 +107,35 @@ export class CommonConstants {
    */
   static readonly DEFAULT_INTERVAL_MINUTE_MAX: number = 30;
   /**
+   * app Title
+   */
+  static readonly APP_TITLE = $r("app.string.app_name");
+  /**
    * bundle name.
    */
-  static readonly BUNDLE_NAME: string = 'com.huawei.alarmclock';
+  static readonly BUNDLE_NAME: string = 'cn.tanghz17.makehabit';
   /**
    * ability name.
    */
   static readonly ABILITY_NAME: string = 'EntryAbility';
 }
+
+/**
+ * The font size of application.
+ */
+export enum FontSize{
+  SMALL = 14,
+  MIDDLE = 16,
+  LARGE = 20
+}
+
+/**
+ * The font weight of application.
+ */
+export enum FontWeight {
+  BOLD = '400',
+  BOLDER = '500',
+};
 
 /**
  * Default number for a week.

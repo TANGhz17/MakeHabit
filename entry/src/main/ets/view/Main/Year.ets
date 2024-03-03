@@ -2,7 +2,7 @@
 @Component
   // @ts-ignore
 export default struct Year {
-  @Prop year : number;
+  @State year : number = 2000;
 
   build() {
     Row() {

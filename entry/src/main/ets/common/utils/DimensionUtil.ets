@@ -20,7 +20,7 @@ const DESIGN_HEIGHT = 780;
  */
 export default class DimensionUtil {
   /**
-   * Obtains the screen horizontal adaptation value.
+   * 获取屏幕水平适配值。
    *
    * @return number
    */

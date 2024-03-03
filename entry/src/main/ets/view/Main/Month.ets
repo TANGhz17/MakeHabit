@@ -4,7 +4,7 @@ import Day from './Day'
 @Component
 export default struct Month {
   // @Prop month : number;
-  month : number = 1;
+  @State month : number = 0;
 
   list : Array<number> = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
 
@@ -13,7 +13,7 @@ export default struct Month {
       Text(this.month.toString()+"月")
         .width("100vp")
         .height("60vp")
-        .fontColor("#ff0000")
+        .fontColor($r('app.color.red_light'))
         .textAlign(TextAlign.Center)
         .fontSize("36fp")
         .fontWeight(FontWeight.Bold)

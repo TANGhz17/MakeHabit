@@ -1,4 +1,4 @@
-import { App_Title, FontSize, TitleBarStyle } from '../../common/constants/Constants'
+import { CommonConstants, FontSize } from '../../common/constants/CommonConstants'
 
 @Component
 export default struct Day {
