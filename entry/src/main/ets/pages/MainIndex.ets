@@ -11,17 +11,20 @@ struct MainIndex {
   // @State
 
   aboutToAppear(){
-    var mDate = LocalDate.now();
-    console.debug("MakeHabit main " + mDate + "是" + mDate.dayOfWeek().toString());
-    console.debug("MakeHabit main " + mDate + "是周" + DateUtils.getDayOfWeek(mDate));
-    console.debug("MakeHabit main " + mDate.monthValue() + "月有" + mDate.lengthOfMonth().toString() + "天");
-    console.debug("MakeHabit main " + mDate.year() + "年" + mDate.isLeapYear().toString());
+    var start = DateUtils.getDayOfWeek(2024, 3, 1);
+    var length = DateUtils.getLengthOfMonth(2024, 3);
+    console.debug("MakeHabit main " + '2024.03从周' + start + '开始，共' + length + '天。' )
+    // var mDate = LocalDate.now();
+    // console.debug("MakeHabit main " + mDate + "是" + mDate.dayOfWeek().toString());
+    // console.debug("MakeHabit main " + mDate + "是周" + DateUtils.getDayOfWeek(mDate));
+    // console.debug("MakeHabit main " + mDate.monthValue() + "月有" + mDate.lengthOfMonth().toString() + "天");
+    // console.debug("MakeHabit main " + mDate.year() + "年" + mDate.isLeapYear().toString());
   }
 
   build() {
     Column() {
 
-      Month({month : 1})
+      Month({year : 2024, month : 3})
 
     }
     .width(CommonConstants.FULL_LENGTH)

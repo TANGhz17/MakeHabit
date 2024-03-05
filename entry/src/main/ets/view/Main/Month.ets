@@ -1,29 +1,35 @@
+import DateUtils from '../../common/utils/DateUtils';
 import Day from './Day'
 import MonthHeader from './MonthHeader';
 
+// @Entry
 @Preview
 @Component
 export default struct Month {
   // @Prop month : number;
+  @State year : number = 2000;
   @State month : number = 0;
 
-  list : Array<number> = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
+  days : Array<number> = [1];
+
+  // aboutToAppear(){
+    // var start = DateUtils.getDayOfWeek(this.year, this.month, 1);
+    // var length = DateUtils.getLengthOfMonth(this.year, this.month);
+    // this.days.length = start + length;
+    // let dayIndex = 1;
+    // for (let i = 0; i < this.days.length; i++) {
+    //   this.days[i] = dayIndex++;
+    // }
+  // }
 
   build() {
     Column() {
-      // Text(this.month.toString()+"月")
-      //   .width("100vp")
-      //   .height("60vp")
-      //   .fontColor($r('app.color.red_light'))
-      //   .textAlign(TextAlign.Center)
-      //   .fontSize("36fp")
-      //   .fontWeight(FontWeight.Bold)
       MonthHeader()
 
       Grid(){
         // day item
         // LazyForEach
-        ForEach(this.list, (item : number) => {
+        ForEach(this.days, (item : number) => {
           GridItem() {
             Day({day : item})
           }
