@@ -1,6 +1,7 @@
 import router from '@ohos.router';
 import { LocalDate } from '@js-joda/core'
 import { CommonConstants } from '../common/constants/CommonConstants';
+import  DateUtils  from '../common/utils/DateUtils';
 import Month from '../view/Main/Month';
 
 @Entry
@@ -10,21 +11,15 @@ struct MainIndex {
   // @State
 
   aboutToAppear(){
-    var mDate = LocalDate.parse('2024-03-01');
-    // .now() 今天的日期
-    console.debug("MakeHabit main "+ LocalDate.now().toString());
-    // .dayOfWeek() 当前日期是周几: FRIDAY
-    console.debug("MakeHabit main "+ mDate.dayOfWeek().toString());
-    // .isLeapYear() 当前日期是否为闰年：true
-    console.debug("MakeHabit main "+ mDate.isLeapYear().toString());
-    // .lengthOfMonth() 当前月有多少天：31
-    console.info(mDate.lengthOfMonth().toString());
+    var mDate = LocalDate.now();
+    console.debug("MakeHabit main " + mDate + "是" + mDate.dayOfWeek().toString());
+    console.debug("MakeHabit main " + mDate + "是周" + DateUtils.getDayOfWeek(mDate));
+    console.debug("MakeHabit main " + mDate.monthValue() + "月有" + mDate.lengthOfMonth().toString() + "天");
+    console.debug("MakeHabit main " + mDate.year() + "年" + mDate.isLeapYear().toString());
   }
 
   build() {
     Column() {
-      // Text("2024年3月")
-      //   .textAlign(TextAlign.Start)
 
       Month({month : 1})
 

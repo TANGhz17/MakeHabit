@@ -1,4 +1,5 @@
 import { CommonConstants, FontSize } from '../../common/constants/CommonConstants'
+import BaseText from './BaseText';
 
 @Component
 export default struct Day {
@@ -10,11 +11,7 @@ export default struct Day {
   // }
 
   build() {
-    Text(this.day.toString())
-      .fontSize(FontSize.SMALL)
-      .fontWeight(FontWeight.Normal)
-      .textAlign(TextAlign.Center)
-      .width(20)
-      .height(20)
+    BaseText({text : this.day.toString()})
+      .backgroundColor($r('app.color.blue_light'))
   }
 }

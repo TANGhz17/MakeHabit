@@ -1,4 +1,5 @@
 import Day from './Day'
+import MonthHeader from './MonthHeader';
 
 @Preview
 @Component
@@ -10,13 +11,15 @@ export default struct Month {
 
   build() {
     Column() {
-      Text(this.month.toString()+"月")
-        .width("100vp")
-        .height("60vp")
-        .fontColor($r('app.color.red_light'))
-        .textAlign(TextAlign.Center)
-        .fontSize("36fp")
-        .fontWeight(FontWeight.Bold)
+      // Text(this.month.toString()+"月")
+      //   .width("100vp")
+      //   .height("60vp")
+      //   .fontColor($r('app.color.red_light'))
+      //   .textAlign(TextAlign.Center)
+      //   .fontSize("36fp")
+      //   .fontWeight(FontWeight.Bold)
+      MonthHeader()
+
       Grid(){
         // day item
         // LazyForEach
@@ -26,6 +29,8 @@ export default struct Month {
           }
         }, (item: number) => item.toString())
       }
+      .columnsGap(5)
+      .rowsGap(5)
       .maxCount(7)
       .layoutDirection(GridDirection.Row)
     }
