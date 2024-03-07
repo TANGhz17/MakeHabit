@@ -15,7 +15,7 @@ struct MainIndex {
   build() {
     Column() {
 
-      Month({year : 2024, month : 3})
+      Month({year : 2024, month : 2})
 
     }
     .width(CommonConstants.FULL_LENGTH)

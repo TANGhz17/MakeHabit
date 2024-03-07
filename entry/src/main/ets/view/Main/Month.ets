@@ -1,6 +1,8 @@
 import DateUtils from  '../../common/utils/DateUtils'
+import Logger from '../../common/utils/Logger'
 import Day from './Day'
 import MonthHeader from './MonthHeader';
+import List from '@ohos.util.List';
 
 // @Entry
 @Preview
@@ -15,19 +17,21 @@ export default struct Month {
   aboutToAppear(){
     let that = this;
     let firstDay = DateUtils.getFirstDayOfMonthInWeek(that.year,that.month);
+    Logger.debug(that.year+'年'+that.month+'月的第一天是周'+firstDay)
     let lengthMonth = DateUtils.getDaysOfMonth(that.year,that.month);
-    let days = new Array();
+    let days = new List();
     // days.length = firstDay + 1 + lengthMonth;
     let dayIndex = 1;
     for (let i = 0; i < firstDay + lengthMonth; i++) {
       if (i < firstDay){
-        days[i] = '';
+        days.add('');
         continue;
       }
-      var a = dayIndex++;
-      days[i] = a.toString();
+      // var a = dayIndex++;
+      days.add(dayIndex++);
     }
-    that.days = days;
+    that.days = days.convertToArray();
+    Logger.debug(this.days.length.toString());
   }
 
   build() {
