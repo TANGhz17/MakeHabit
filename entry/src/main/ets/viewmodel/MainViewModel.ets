@@ -1,5 +1,5 @@
-
 import ReminderService from '../model/ReminderService';
+import Logger from '../common/utils/Logger'
 
 /**
  * 主页逻辑功能类
@@ -16,5 +16,12 @@ export default class MainViewModel {
     this.reminderService.openNotificationPermission();
   }
 
+  public testDate( year:number, month:number, day:number ) : void{
+    let that = this;
+
+    var date = new Date();
+
+    Logger.debug(date.toDateString());
+  }
 
 }

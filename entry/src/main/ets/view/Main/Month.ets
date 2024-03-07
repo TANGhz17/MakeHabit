@@ -1,4 +1,3 @@
-import DateUtils from '../../common/utils/DateUtils';
 import Day from './Day'
 import MonthHeader from './MonthHeader';
 
@@ -11,16 +10,6 @@ export default struct Month {
   @State month : number = 0;
 
   days : Array<number> = [1];
-
-  // aboutToAppear(){
-    // var start = DateUtils.getDayOfWeek(this.year, this.month, 1);
-    // var length = DateUtils.getLengthOfMonth(this.year, this.month);
-    // this.days.length = start + length;
-    // let dayIndex = 1;
-    // for (let i = 0; i < this.days.length; i++) {
-    //   this.days[i] = dayIndex++;
-    // }
-  // }
 
   build() {
     Column() {
