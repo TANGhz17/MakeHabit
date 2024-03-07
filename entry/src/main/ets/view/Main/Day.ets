@@ -3,15 +3,13 @@ import BaseText from './BaseText';
 
 @Component
 export default struct Day {
-  day : number;
+  day : string;
   // @Link hadRecord : boolean;
 
-  // Day(day){
-  //   this.day = day;
-  // }
-
   build() {
-    BaseText({text : this.day.toString()})
-      .backgroundColor($r('app.color.blue_light'))
+    // if(this.day != '') {
+      BaseText({text : this.day})
+        // .backgroundColor($r('app.color.blue_light'))
+    // }
   }
 }

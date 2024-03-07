@@ -1,3 +1,4 @@
+import DateUtils from  '../../common/utils/DateUtils'
 import Day from './Day'
 import MonthHeader from './MonthHeader';
 
@@ -9,7 +10,25 @@ export default struct Month {
   @State year : number = 2000;
   @State month : number = 0;
 
-  days : Array<number> = [1];
+  days = new Array();
+
+  aboutToAppear(){
+    let that = this;
+    let firstDay = DateUtils.getFirstDayOfMonthInWeek(that.year,that.month);
+    let lengthMonth = DateUtils.getDaysOfMonth(that.year,that.month);
+    let days = new Array();
+    // days.length = firstDay + 1 + lengthMonth;
+    let dayIndex = 1;
+    for (let i = 0; i < firstDay + lengthMonth; i++) {
+      if (i < firstDay){
+        days[i] = '';
+        continue;
+      }
+      var a = dayIndex++;
+      days[i] = a.toString();
+    }
+    that.days = days;
+  }
 
   build() {
     Column() {
@@ -18,11 +37,11 @@ export default struct Month {
       Grid(){
         // day item
         // LazyForEach
-        ForEach(this.days, (item : number) => {
+        ForEach(this.days, (item : string) => {
           GridItem() {
             Day({day : item})
           }
-        }, (item: number) => item.toString())
+        }, (item: string) => item)
       }
       .columnsGap(5)
       .rowsGap(5)

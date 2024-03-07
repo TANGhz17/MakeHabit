@@ -20,8 +20,9 @@ export default class MainViewModel {
     let that = this;
 
     var date = new Date();
+    var test = new Date(year,month,day);
 
-    Logger.debug(date.toDateString());
+    Logger.debug(test.toString());
   }
 
 }

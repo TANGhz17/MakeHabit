@@ -6,10 +6,6 @@
   "author": "",
   "license": "",
   "dependencies": {
-    // 不好用，会报错，不兼容
-//    "@js-joda/core": "5.4.2",     //https://js-joda.github.io/js-joda/
-//    "@js-joda/timezone": "2.15.0",
-//    "@ohos/localeenus": "2.0.0",  //https://ohpm.openharmony.cn/#/cn/detail/@ohos%2Flocaleenus
     "@yunkss/eftool": "1.0.2",    //https://gitee.com/yunkss/ef-tool#eftool
     "@isrc/easyui": "1.0.1"       //https://gitee.com/zw0601/ohos_easyui#easyui
   }

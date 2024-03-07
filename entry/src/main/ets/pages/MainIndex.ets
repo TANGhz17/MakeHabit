@@ -10,11 +10,6 @@ struct MainIndex {
 
   aboutToAppear(){
     let that = this;
-    that.mainModel.testDate(2024, 3, 1)
-
-    // var start = DateUtils.getDayOfWeek(2024, 3, 1);
-    // var length = DateUtils.getLengthOfMonth(2024, 3);
-    // console.debug("MakeHabit main " + '2024.03从周' + start + '开始，共' + length + '天。' )
   }
 
   build() {
