@@ -1,6 +1,7 @@
 import router from '@ohos.router';
-import { CJCalendar } from 'cjcalendar'
-import { CommonConstants } from '../common/constants/CommonConstants';
+import { CJCalendar, CJDateItem } from 'cjcalendar'
+import { CommonConstants } from '../common/constants/CommonConstants'
+import Logger from '../common/utils/Logger'
 import DayItem from '../viewmodel/DayItem'
 import MainModel from '../viewmodel/MainViewModel';
 
@@ -16,7 +17,14 @@ struct MainIndex {
 
   build() {
     Column({ space: 16 }) {
-      CJCalendar()
+      CJCalendar({
+
+        todayFontColor: $r('app.color.blue_light'),
+
+        onDateChange: (dates: CJDateItem[]) => {
+          Logger.debug("CJCalendar Change dates：", JSON.stringify(dates))
+        }
+      })
     }
     .padding(16)
     .width(CommonConstants.FULL_LENGTH)

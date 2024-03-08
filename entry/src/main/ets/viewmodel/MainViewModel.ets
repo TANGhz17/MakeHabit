@@ -18,15 +18,6 @@ export default class MainViewModel {
     this.reminderService.openNotificationPermission();
   }
 
-  public testDate( year:number, month:number, day:number ) : void{
-    let that = this;
-
-    var date = new Date();
-    var test = new Date(year,month,day);
-
-    Logger.debug(test.toString());
-  }
-
   public InitDayItems( year:number, month:number, day:number ) : void{
     let firstDay = DateUtils.getFirstDayOfMonthInWeek(year,month);
     Logger.debug(year+'年'+month+'月的第一天是周'+firstDay);
