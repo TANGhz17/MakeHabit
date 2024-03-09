@@ -18,23 +18,4 @@ export default class MainViewModel {
     this.reminderService.openNotificationPermission();
   }
 
-  public InitDayItems( year:number, month:number, day:number ) : void{
-    let firstDay = DateUtils.getFirstDayOfMonthInWeek(year,month);
-    Logger.debug(year+'年'+month+'月的第一天是周'+firstDay);
-
-    let lengthMonth = DateUtils.getDaysOfMonth(year,month);
-    let days = new List();
-
-    let dayIndex = 1;
-    for (let i = 0; i < firstDay + lengthMonth; i++) {
-      if (i < firstDay){
-        days.add('');
-        continue;
-      }
-      days.add(dayIndex++);
-    }
-    // days = days.convertToArray();
-    // Logger.debug(this.days.length.toString());
-  }
-
 }
