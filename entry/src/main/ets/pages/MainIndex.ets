@@ -1,5 +1,5 @@
 import router from '@ohos.router';
-import { CJCalendar, CJDateItem, OptMode } from 'cjcalendar'
+import { CJCalendar, CJDateItem, OptMode } from '../view/Components/Calendar/CJCalendar'
 import { CommonConstants } from '../common/constants/CommonConstants'
 import Logger from '../common/utils/Logger'
 import MainModel from '../viewmodel/MainViewModel';
@@ -20,6 +20,12 @@ struct MainIndex {
       CJCalendar({
         optMode : OptMode.MULTIPLE,
         // cellLayout : this.cellLayout,
+
+        // recordDatas: [
+        //   '2023-02-29',
+        //   '2024-03-04',
+        //   '2024-03-29'
+        // ],
 
         todayFontColor: $r('app.color.blue_light'),
 

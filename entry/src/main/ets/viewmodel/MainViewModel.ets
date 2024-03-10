@@ -1,7 +1,6 @@
 import ReminderService from '../model/ReminderService';
 import DateUtils from  '../common/utils/DateUtils'
 import Logger from '../common/utils/Logger'
-import List from '@ohos.util.List';
 
 /**
  * 主页逻辑功能类
