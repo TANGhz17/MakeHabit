@@ -18,9 +18,10 @@ struct MainIndex {
   build() {
     Column({ space: 16 }) {
       CJCalendar({
-        optMode : OptMode.MULTIPLE,
+        optMode : OptMode.NORMAL,
         // cellLayout : this.cellLayout,
 
+        recordIcoSize: 6,
         recordDatas: [
           '2023-02-29',
           '2024-03-04',

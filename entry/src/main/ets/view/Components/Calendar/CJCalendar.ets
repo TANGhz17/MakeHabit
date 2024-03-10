@@ -33,7 +33,7 @@ export class CJDateItem {
   date?: number
   week?: number
   time?: number
-  lunarDate?: LunarDate
+  // lunarDate?: LunarDate
   isPre?: boolean // 是否是上一个月的 / 在startDate 之前
   isNext?: boolean // 是否是下一个月的 / 在endDate 之后
   hasRecord?: boolean // 是否有记录
@@ -91,6 +91,7 @@ struct CalenderCell {
   itemFontSize: Length
   itemFontColor: ResourceColor
   itemFontWeight: FontWeight
+  recordIcoSize: Length
   todayFontColor: ResourceColor
   selectFontColor: ResourceColor
   selectItemBgColor: ResourceColor
@@ -263,8 +264,9 @@ struct CalenderCell {
                          this.selectItem2 != null && this.item.time == this.selectItem2.time ? "50%" : "100%")
                   .height("60%")
               }
-
             }
+
+            // 日期item的背景
             if (this.isShowSelectBg()) {
               Column()
                 .position({ x: "10%", y: "10%" })
@@ -277,10 +279,20 @@ struct CalenderCell {
                 .transition({ type: TransitionType.Delete, opacity: 0 })
               // .transition()
             }
-            Text(this.item.date + '')
-              .fontSize(this.itemFontSize)
-              .fontColor(this.getItemColor())
-              .fontWeight(this.itemFontWeight)
+
+            Column() {
+              Text(this.item.date.toString())
+                .fontSize(this.itemFontSize)
+                .fontColor(this.getItemColor())
+                .fontWeight(this.itemFontWeight)
+
+              if (this.item.hasRecord) {
+                Circle()
+                  .width(this.recordIcoSize)
+                  .height(this.recordIcoSize)
+                  .fill($r('app.color.red_light'))
+              }
+            }
             // Text(this.item.lunarDate.week + "")
           }
           // .justifyContent(FlexAlign.Center)
@@ -358,6 +370,7 @@ export struct CJCalendar {
   showTime: boolean = false // 是否显示时间选择
   timeFontSize: number | string | Resource = 18 // 时间字体大小
   timeFontColor: ResourceColor // 时间字体大小
+  recordIcoSize: number | string | Resource = 4 // 有记录时的标志大小
   private hours: string[] // 小时
   private minutes: string[] // 分钟
   private seconds: string[] // 秒
@@ -468,6 +481,7 @@ export struct CJCalendar {
         cellLayout: this.cellLayout,
         itemFontSize: this.itemFontSize,
         itemFontColor: this.itemFontColor,
+        recordIcoSize: this.recordIcoSize,
         optMode: this.optMode,
         today: this.today.getTime(),
         itemFontWeight: this.itemFontWeight,
@@ -647,13 +661,15 @@ export struct CJCalendar {
   // 查询数据库这天是否有记录
   private hasRecordWithDay(date: Date): boolean {
     //TODO 建立查询一天的记录
+    let bool = false;
     this.recordDatas.forEach(record => {
       if (this.IsSameDay(date, record)) {
-        Logger.debug(date.toDateString())
-        return true;
+        Logger.debug(date.toDateString() + '有 记录');
+        bool = true;
+        return false;
       }
     });
-    return false;
+    return bool;
   }
 
   // 判断'0000-00-00'格式的日期
@@ -664,8 +680,8 @@ export struct CJCalendar {
     let day = +splitted[2];
 
     if (year == date.getFullYear() &&
-        month == date.getMonth() + 1 &&
-        day == date.getDate()) {
+    month == date.getMonth() + 1 &&
+    day == date.getDate()) {
       return true;
     }
     return false;
