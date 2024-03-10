@@ -15,15 +15,16 @@ export default class EntryAbility extends UIAbility {
     Logger.info('Ability onDestroy');
   }
 
-  async onWindowStageCreate(windowStage: window.WindowStage) {
+  // async
+  onWindowStageCreate(windowStage: window.WindowStage) {
     // Main window is created, set main page for this ability
     Logger.info('Ability onWindowStageCreate');
 
-    let globalDisplay: display.Display = display.getDefaultDisplaySync();
-    GlobalContext.getContext().setObject('globalDisplay', globalDisplay);
-
-    let preference = GlobalContext.getContext().getObject('preference') as PreferencesHandler;
-    await preference.configure(this.context.getApplicationContext());
+    // let globalDisplay: display.Display = display.getDefaultDisplaySync();
+    // GlobalContext.getContext().setObject('globalDisplay', globalDisplay);
+    //
+    // let preference = GlobalContext.getContext().getObject('preference') as PreferencesHandler;
+    // await preference.configure(this.context.getApplicationContext());
 
     windowStage.loadContent('pages/MainIndex', (err, data) => {
       if (err.code) {

@@ -369,7 +369,6 @@ export struct CJCalendar {
   startDate: Date
   // 截止日期
   endDate: Date
-
   recordDatas: string[]
 
   //
@@ -649,11 +648,26 @@ export struct CJCalendar {
   private hasRecordWithDay(date: Date): boolean {
     //TODO 建立查询一天的记录
     this.recordDatas.forEach(record => {
-      if (record == date.toDateString()) {
+      if (this.IsSameDay(date, record)) {
         Logger.debug(date.toDateString())
         return true;
       }
     });
+    return false;
+  }
+
+  // 判断'0000-00-00'格式的日期
+  private IsSameDay(date: Date, string: string): boolean {
+    let splitted = string.split("-", 3)
+    let year = +splitted[0];
+    let month = +splitted[1];
+    let day = +splitted[2];
+
+    if (year == date.getFullYear() &&
+        month == date.getMonth() + 1 &&
+        day == date.getDate()) {
+      return true;
+    }
     return false;
   }
 
@@ -705,6 +719,7 @@ export struct CJCalendar {
     // 添加日期
     for (let i = 0; i < finilCount; i++) {
       let has = this.hasRecordWithDay(tempDate);
+
       let item = new CJDateItem(
         tempDate.getFullYear(),
         tempDate.getMonth(),

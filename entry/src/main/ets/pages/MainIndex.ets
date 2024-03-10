@@ -21,11 +21,11 @@ struct MainIndex {
         optMode : OptMode.MULTIPLE,
         // cellLayout : this.cellLayout,
 
-        // recordDatas: [
-        //   '2023-02-29',
-        //   '2024-03-04',
-        //   '2024-03-29'
-        // ],
+        recordDatas: [
+          '2023-02-29',
+          '2024-03-04',
+          '2024-03-29'
+        ],
 
         todayFontColor: $r('app.color.blue_light'),
 
