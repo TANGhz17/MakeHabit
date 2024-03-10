@@ -1,4 +1,5 @@
 import display from '@ohos.display';
+import dataPreferences from '@ohos.data.preferences';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import window from '@ohos.window';
 import PreferencesHandler from '../model/database/PreferencesHandler';
@@ -19,6 +20,19 @@ export default class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage) {
     // Main window is created, set main page for this ability
     Logger.info('Ability onWindowStageCreate');
+
+    try {
+      dataPreferences.getPreferences(this.context, 'cn.tanghz17.makehabit', (err, preferences) => {
+        if (err) {
+          console.error(`Failed to get preferences. Code:${err.code},message:${err.message}`);
+          return;
+        }
+        console.info('Succeeded in getting preferences.');
+        // 进行相关数据操作
+      })
+    } catch (err) {
+      console.error(`Failed to get preferences. Code:${err.code},message:${err.message}`);
+    }
 
     // let globalDisplay: display.Display = display.getDefaultDisplaySync();
     // GlobalContext.getContext().setObject('globalDisplay', globalDisplay);
