@@ -1,11 +1,26 @@
+@Observed
 export default class RecordItem{
-  habitId : number = 0;
-  date : Date = new Date();
+  /**
+   * 记录id
+   */
+  id: number = 0;
 
-  constructor(habitId : number,
-              date : Date){
-    this.habitId = habitId
-    this.date = date
+  /**
+   * 创建时间
+   */
+  createTime : Date = new Date();
+
+  /**
+   * 关联习惯的id
+   */
+  habitId : number = 0;
+
+  constructor(id: number,
+              createTime : Date,
+              habitId : number){
+    this.id = id;
+    this.createTime = createTime;
+    this.habitId = habitId;
   }
 
 }

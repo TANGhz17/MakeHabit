@@ -1,14 +1,25 @@
 import display from '@ohos.display';
-import dataPreferences from '@ohos.data.preferences';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import window from '@ohos.window';
-import PreferencesHandler from '../model/database/PreferencesHandler';
 import { GlobalContext } from '../common/utils/GlobalContext';
 import Logger from '../common/utils/Logger'
+import DbUtil from '../common/utils/DbUtil';
+import HabitModel from '../model/HabitModel';
+import RecordModel from '../model/RecordModel';
 
 export default class EntryAbility extends UIAbility {
 
-  onCreate(want, launchParam) {
+  async onCreate(want, launchParam) {
+    // 1.加载用户首选项
+    // 2.初始化日期
+    // AppStorage.SetOrCreate()
+    // 3.初始化RDB工具
+    await DbUtil.initDB(this.context);
+    // 3.1.创建Habit表
+    DbUtil.createTable(HabitModel.getCreateTableSql())
+    // 3.2.创建Record表
+    DbUtil.createTable(RecordModel.getCreateTableSql())
+
     Logger.info('Ability onCreate');
   }
 
@@ -21,28 +32,9 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     Logger.info('Ability onWindowStageCreate');
 
-    try {
-      dataPreferences.getPreferences(this.context, 'cn.tanghz17.makehabit', (err, preferences) => {
-        if (err) {
-          console.error(`Failed to get preferences. Code:${err.code},message:${err.message}`);
-          return;
-        }
-        console.info('Succeeded in getting preferences.');
-        // 进行相关数据操作
-      })
-    } catch (err) {
-      console.error(`Failed to get preferences. Code:${err.code},message:${err.message}`);
-    }
-
-    // let globalDisplay: display.Display = display.getDefaultDisplaySync();
-    // GlobalContext.getContext().setObject('globalDisplay', globalDisplay);
-    //
-    // let preference = GlobalContext.getContext().getObject('preference') as PreferencesHandler;
-    // await preference.configure(this.context.getApplicationContext());
-
     windowStage.loadContent('pages/MainIndex', (err, data) => {
       if (err.code) {
-        Logger.info('Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        Logger.error('Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
       Logger.info('testTag', 'Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
