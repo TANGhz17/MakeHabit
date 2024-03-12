@@ -3,6 +3,8 @@ import { CJCalendar, CJDateItem, OptMode } from '../view/Components/Calendar/CJC
 import { CommonConstants } from '../common/constants/CommonConstants'
 import Logger from '../common/utils/Logger'
 import MainModel from '../viewmodel/MainViewModel';
+import RecordModel from '../model/RecordModel';
+import HabitModel from '../model/HabitModel';
 
 @Entry
 @Preview
@@ -24,16 +26,26 @@ struct MainIndex {
         // cellLayout : this.cellLayout,
 
         recordIcoSize: 6,
-        // recordDatas: [
-        //   '2023-02-29',
-        //   '2024-03-04',
-        //   '2024-03-29'
-        // ],
 
         todayFontColor: $r('app.color.blue_light'),
 
-        onDateChange: (dates: CJDateItem[]) => {
-          Logger.debug("CJCalendar Change dates：", JSON.stringify(dates))
+        onDateChange: (date: CJDateItem) => {
+          // if (date.hasRecord) {
+          //   let tempDate: Date = new Date(date.fullYear, date.month, date.date)
+          //   RecordModel.queryByDate(tempDate.getTime())
+          //     .then(records => {
+          //       let ids : number[] = []
+          //       records.forEach(record => {
+          //         ids.push(record.habitId)
+          //       })
+          //       HabitModel.queryByHabitName(ids)
+          //         .then(habits => {
+          //           habits.forEach(habit => {
+          //             Logger.debug(tempDate.toDateString(), '有', habit.name, '习惯记录')
+          //           })
+          //         })
+          //     })
+          // }
         }
       })
         .height('50%')

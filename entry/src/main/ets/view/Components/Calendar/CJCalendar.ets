@@ -661,16 +661,10 @@ export struct CJCalendar {
 
   // 查询加载的日期在数据库里是否有记录
   private hasRecordWithDates(){
-
     this.dates.forEach(date =>{
-      let tempDate: Date = new Date(
-        date.fullYear,
-        date.month,
-        date.date
-      )
+      let tempDate: Date = new Date(date.fullYear, date.month, date.date)
       RecordModel.queryByDate(tempDate.getTime())
         .then(records => {
-          // Logger.debug(tempDate.toDateString(), JSON.stringify(records))
           if (records.length > 0){
             Logger.debug(tempDate.toDateString() + '有 记录');
             date.hasRecord = true
