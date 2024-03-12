@@ -46,7 +46,16 @@ class HabitModel {
     return DbUtil.delete(predicates)
   }
 
-
+  queryAllHabit(): HabitItem[]{
+    let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
+    predicates.isNotNull(COLUMNS[1].columnName)
+    let habits : HabitItem[] = []
+    DbUtil.queryForList<HabitItem>(predicates, COLUMNS)
+      .then(value => {
+        habits = value
+      })
+    return habits
+  }
 
 }
 

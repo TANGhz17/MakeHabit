@@ -8,7 +8,7 @@ export default class RecordItem{
   /**
    * 创建时间
    */
-  createTime : Date = new Date();
+  createTime : number = 0;
 
   /**
    * 关联习惯的id
@@ -16,7 +16,7 @@ export default class RecordItem{
   habitId : number = 0;
 
   constructor(id: number,
-              createTime : Date,
+              createTime : number,
               habitId : number){
     this.id = id;
     this.createTime = createTime;

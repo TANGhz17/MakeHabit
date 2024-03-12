@@ -3,6 +3,7 @@ import font from '@ohos.font';
 import Logger from '../../../common/utils/Logger'
 import CustomTextPicker from './CustomTextPicker';
 import { LunarCalendar } from './LunarCalendar'
+import RecordModel from '../../../model/RecordModel';
 
 const TAG = "CJCalendar"
 
@@ -382,7 +383,7 @@ export struct CJCalendar {
   startDate: Date
   // 截止日期
   endDate: Date
-  recordDatas: string[]
+  // recordDatas: string[]
 
   //
   @State private currMonth: number = this.today.getMonth()
@@ -660,31 +661,16 @@ export struct CJCalendar {
 
   // 查询数据库这天是否有记录
   private hasRecordWithDay(date: Date): boolean {
-    //TODO 建立查询一天的记录
     let bool = false;
-    this.recordDatas.forEach(record => {
-      if (this.IsSameDay(date, record)) {
-        Logger.debug(date.toDateString() + '有 记录');
-        bool = true;
-        return false;
-      }
-    });
+    RecordModel.queryByDate(date.getTime())
+      .then(records => {
+        Logger.debug(date.toDateString(), JSON.stringify(records))
+        if (records.length > 0){
+          Logger.debug(date.toDateString() + '有 记录');
+          bool = true
+        }
+      })
     return bool;
-  }
-
-  // 判断'0000-00-00'格式的日期
-  private IsSameDay(date: Date, string: string): boolean {
-    let splitted = string.split("-", 3)
-    let year = +splitted[0];
-    let month = +splitted[1];
-    let day = +splitted[2];
-
-    if (year == date.getFullYear() &&
-    month == date.getMonth() + 1 &&
-    day == date.getDate()) {
-      return true;
-    }
-    return false;
   }
 
   /**

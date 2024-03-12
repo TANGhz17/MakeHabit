@@ -20,8 +20,8 @@ export default class HabitItem {
    */
   intervalTime: number = 0;
 
-  constructor(id: number,
-              name: string,
+  constructor(name: string,
+              id?: number,
               msg?: string,
               intervalTime?: number) {
     this.id = id;

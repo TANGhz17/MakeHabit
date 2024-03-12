@@ -43,6 +43,12 @@ class RecordModel {
     return DbUtil.delete(predicates)
   }
 
+  async queryByDate(date: number): Promise<RecordItem[]>{
+    let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
+    predicates.equalTo(COLUMNS[1].columnName,date)
+    return DbUtil.queryForList<RecordItem>(predicates, COLUMNS)
+  }
+
 }
 
 let recordModel = new RecordModel()
