@@ -659,18 +659,24 @@ export struct CJCalendar {
     this.calcDatas()
   }
 
-  // 查询数据库这天是否有记录
-  private hasRecordWithDay(date: Date): boolean {
-    let bool = false;
-    RecordModel.queryByDate(date.getTime())
-      .then(records => {
-        Logger.debug(date.toDateString(), JSON.stringify(records))
-        if (records.length > 0){
-          Logger.debug(date.toDateString() + '有 记录');
-          bool = true
-        }
-      })
-    return bool;
+  // 查询加载的日期在数据库里是否有记录
+  private hasRecordWithDates(){
+
+    this.dates.forEach(date =>{
+      let tempDate: Date = new Date(
+        date.fullYear,
+        date.month,
+        date.date
+      )
+      RecordModel.queryByDate(tempDate.getTime())
+        .then(records => {
+          // Logger.debug(tempDate.toDateString(), JSON.stringify(records))
+          if (records.length > 0){
+            Logger.debug(tempDate.toDateString() + '有 记录');
+            date.hasRecord = true
+          }
+        })
+    })
   }
 
   /**
@@ -720,8 +726,6 @@ export struct CJCalendar {
 
     // 添加日期
     for (let i = 0; i < finilCount; i++) {
-      let has = this.hasRecordWithDay(tempDate);
-
       let item = new CJDateItem(
         tempDate.getFullYear(),
         tempDate.getMonth(),
@@ -733,7 +737,7 @@ export struct CJCalendar {
         (i < preCount ? true : false) || this.startDate.getTime() > tempDate.getTime(),
         (i >= preCount + count ? true : false) || this.endDate.getTime() < tempDate.getTime(),
         // 查询是否有数据，默认无
-        has
+        // has
       )
       if (this.reBuildDateItem) {
         this.reBuildDateItem(item)
@@ -741,6 +745,8 @@ export struct CJCalendar {
       this.dates.push(item)
       tempDate.setDate(tempDate.getDate() + 1)
     }
+
+    this.hasRecordWithDates()
   }
 
   @Styles timePicker() {

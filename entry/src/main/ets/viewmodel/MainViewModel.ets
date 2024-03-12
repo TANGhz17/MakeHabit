@@ -31,10 +31,10 @@ export default class MainViewModel {
 
   addRecordsToDB(){
     let records: RecordItem[] = [
-      {id: 0, habitId: 1, createTime: new Date(2024,2,29).getTime()},
-      {id: 1, habitId: 0, createTime: new Date(2024,3,4).getTime()},
-      {id: 2, habitId: 1, createTime: new Date(2024,3,29).getTime()},
-      {id: 3, habitId: 2, createTime: new Date(2024,3,29).getTime()}
+      {id: 0, habitId: 1, createTime: new Date(2024,2-1,29).getTime()},
+      {id: 1, habitId: 0, createTime: new Date(2024,3-1,4).getTime()},
+      {id: 2, habitId: 1, createTime: new Date(2024,3-1,29).getTime()},
+      {id: 3, habitId: 2, createTime: new Date(2024,3-1,29).getTime()}
     ]
     records.forEach(record => {
       RecordModel.insert(record)
