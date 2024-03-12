@@ -1,7 +1,7 @@
+import relationalStore from '@ohos.data.relationalStore';
 import { ColumnInfo, ColumnType } from '../common/bean/ColumnInfo';
 import DbUtil from '../common/utils/DbUtil';
 import HabitItem from '../viewmodel/HabitItem';
-import relationalStore from '@ohos.data.relationalStore';
 
 const TABLE_NAME = 'HABIT'
 
@@ -9,7 +9,7 @@ const TABLE_NAME = 'HABIT'
  * 数据库建表语句
  */
 const SQL_CREATE_TABLE: string = `
-  CREATE TABLE IF NOT EXISTS HABIT (
+  CREATE TABLE IF NOT HABIT (
     ID              INTEGER   PRIMARY KEY   AUTOINCREMENT,
     NAME            TEXT      NOT NULL,
     MSG             TEXT,
@@ -29,11 +29,11 @@ class HabitModel {
     // return SQL_CREATE_TABLE;
     return 'CREATE TABLE IF NOT EXISTS ' + TABLE_NAME +
     ' ( ' +
-    COLUMNS[0].columnName + 'INTEGER  PRIMARY KEY  AUTOINCREMENT,' +
-    COLUMNS[1].columnName + 'TEXT     NOT NULL,' +
-    COLUMNS[2].columnName + 'TEXT,' +
-    COLUMNS[3].columnName + 'INTEGER' +
-    ' )'
+    COLUMNS[0].columnName + ' INTEGER  PRIMARY KEY  AUTOINCREMENT, ' +
+    COLUMNS[1].columnName + ' TEXT     NOT NULL, ' +
+    COLUMNS[2].columnName + ' TEXT, ' +
+    COLUMNS[3].columnName + ' INTEGER ' +
+    ')'
   }
 
   insert(habit: HabitItem){
