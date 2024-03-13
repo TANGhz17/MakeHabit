@@ -1,6 +1,7 @@
 import Logger from '../common/utils/Logger'
 import habitModel from '../model/HabitModel';
 import RecordModel from '../model/RecordModel';
+import { CJDateItem } from '../view/Components/Calendar/CJCalendar';
 import HabitItem from './HabitItem'
 import RecordItem from './RecordItem'
 
@@ -39,6 +40,11 @@ export default class MainViewModel {
     records.forEach(record => {
       RecordModel.insert(record)
     })
+  }
+
+  // 设置当前日期的记录
+  setCurrentRecords(date: CJDateItem){
+
   }
 
 }
