@@ -41,6 +41,7 @@ struct MainIndex {
       // this.records.forEach()
       // this.currDate.records 'this.currDate' does not comply with the UI component syntax. <etsLint>
       RecordList({records:$records})
+        .width('100%')
         .height('50%')
 
     }
