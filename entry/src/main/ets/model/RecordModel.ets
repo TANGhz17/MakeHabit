@@ -1,7 +1,7 @@
 import relationalStore from '@ohos.data.relationalStore';
 import { ColumnInfo, ColumnType } from '../common/bean/ColumnInfo';
 import DbUtil from '../common/utils/DbUtil';
-import RecordItem from '../viewmodel/RecordItem';
+import Record from '../viewmodel/Record';
 
 const TABLE_NAME = 'RECORD'
 
@@ -33,7 +33,7 @@ class RecordModel {
     ')'
   }
 
-  insert(record: RecordItem){
+  insert(record: Record){
     return DbUtil.insert(TABLE_NAME, record, COLUMNS)
   }
 
@@ -43,10 +43,10 @@ class RecordModel {
     return DbUtil.delete(predicates)
   }
 
-  async queryByDate(date: number): Promise<RecordItem[]>{
+  async queryByDate(date: number): Promise<Record[]>{
     let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
     predicates.equalTo(COLUMNS[1].columnName,date)
-    return DbUtil.queryForList<RecordItem>(predicates, COLUMNS)
+    return DbUtil.queryForList<Record>(predicates, COLUMNS)
   }
 
 }

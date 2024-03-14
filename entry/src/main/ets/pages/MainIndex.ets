@@ -6,15 +6,14 @@ import MainModel from '../viewmodel/MainViewModel';
 import RecordModel from '../model/RecordModel';
 import HabitModel from '../model/HabitModel';
 import { RecordList } from '../view/Main/RecordList';
-import RecordItem from '../viewmodel/RecordItem';
+import Record from '../viewmodel/Record';
 
 @Entry
 @Preview
 @Component
 struct MainIndex {
   private mainModel: MainModel = MainModel.instant;
-  @State records: RecordItem[] = [];
-  @State currDate: CJDateItem = new CJDateItem();
+  @State records: Record[] = [];
   // @State days : Array<DayItem> = new Array();
 
   aboutToAppear(){
@@ -22,8 +21,6 @@ struct MainIndex {
     that.mainModel.addHabitsToDB()
     that.mainModel.addRecordsToDB()
   }
-
-
 
   build() {
     Column({ space: 16 }) {
@@ -35,30 +32,16 @@ struct MainIndex {
         todayFontColor: $r('app.color.blue_light'),
 
         onDateChange: (date: CJDateItem) => {
-          this.currDate = date
-          // if (date.hasRecord) {
-          //   let tempDate: Date = new Date(date.fullYear, date.month, date.date)
-          //   RecordModel.queryByDate(tempDate.getTime())
-          //     .then(records => {
-          //       let ids : number[] = []
-          //       records.forEach(record => {
-          //         ids.push(record.habitId)
-          //       })
-          //       HabitModel.queryByHabitName(ids)
-          //         .then(habits => {
-          //           habits.forEach(habit => {
-          //             Logger.debug(tempDate.toDateString(), '有', habit.name, '习惯记录')
-          //           })
-          //         })
-          //     })
-          // }
+          this.records = date.records
+          Logger.debug(JSON.stringify(this.records))
         }
       })
         .height('50%')
 
       // this.records.forEach()
       // this.currDate.records 'this.currDate' does not comply with the UI component syntax. <etsLint>
-      RecordList({currDate:$currDate})
+      RecordList({records:$records})
+        .height('50%')
 
     }
     .padding(16)

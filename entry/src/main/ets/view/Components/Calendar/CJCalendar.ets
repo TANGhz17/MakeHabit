@@ -4,7 +4,7 @@ import Logger from '../../../common/utils/Logger'
 import CustomTextPicker from './CustomTextPicker';
 import { LunarCalendar } from './LunarCalendar'
 import RecordModel from '../../../model/RecordModel';
-import RecordItem from '../../../viewmodel/RecordItem';
+import Record from '../../../viewmodel/Record';
 
 const TAG = "CJCalendar"
 
@@ -39,7 +39,7 @@ export class CJDateItem {
   isPre?: boolean // 是否是上一个月的 / 在startDate 之前
   isNext?: boolean // 是否是下一个月的 / 在endDate 之后
   // hasRecord?: boolean // 是否有记录
-  records?: RecordItem[]  // 存储和查询到的日期内的记录信息
+  records?: Record[]  // 存储和查询到的日期内的记录信息
 
   constructor(fullYear?: number, month?: number,
               date?: number, day?: number,

@@ -1,5 +1,5 @@
 @Observed
-export default class RecordItem{
+export default class Record{
   /**
    * 记录id
    */

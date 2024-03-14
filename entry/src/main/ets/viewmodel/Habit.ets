@@ -1,5 +1,5 @@
 @Observed
-export default class HabitItem {
+export default class Habit {
   /**
    * 习惯id
    */

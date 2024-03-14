@@ -1,7 +1,7 @@
 import relationalStore from '@ohos.data.relationalStore';
 import { ColumnInfo, ColumnType } from '../common/bean/ColumnInfo';
 import DbUtil from '../common/utils/DbUtil';
-import HabitItem from '../viewmodel/HabitItem';
+import Habit from '../viewmodel/Habit';
 
 const TABLE_NAME = 'HABIT'
 
@@ -36,7 +36,7 @@ class HabitModel {
     ')'
   }
 
-  insert(habit: HabitItem){
+  insert(habit: Habit){
     return DbUtil.insert(TABLE_NAME, habit, COLUMNS)
   }
 
@@ -46,23 +46,18 @@ class HabitModel {
     return DbUtil.delete(predicates)
   }
 
-  async queryByHabitName(ids: number[]): Promise<HabitItem[]>{
+  async queryByHabitName(ids: number[]): Promise<Habit[]>{
     let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
     for (let i = 0; i < ids.length; i++) {
       predicates.equalTo(COLUMNS[0].columnName, ids[i])
     }
-    return DbUtil.queryForList<HabitItem>(predicates, COLUMNS)
+    return DbUtil.queryForList<Habit>(predicates, COLUMNS)
   }
 
-  queryAllHabit(): HabitItem[]{
+  async queryAllHabit(): Promise<Habit[]>{
     let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
     predicates.isNotNull(COLUMNS[1].columnName)
-    let habits : HabitItem[] = []
-    DbUtil.queryForList<HabitItem>(predicates, COLUMNS)
-      .then(value => {
-        habits = value
-      })
-    return habits
+    return DbUtil.queryForList<Habit>(predicates, COLUMNS)
   }
 
 }
