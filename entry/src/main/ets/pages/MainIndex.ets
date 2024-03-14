@@ -3,8 +3,6 @@ import { CJCalendar, CJDateItem, OptMode } from '../view/Components/Calendar/CJC
 import { CommonConstants } from '../common/constants/CommonConstants'
 import Logger from '../common/utils/Logger'
 import MainModel from '../viewmodel/MainViewModel';
-import RecordModel from '../model/RecordModel';
-import HabitModel from '../model/HabitModel';
 import { RecordList } from '../view/Main/RecordList';
 import Record from '../viewmodel/Record';
 
@@ -13,6 +11,7 @@ import Record from '../viewmodel/Record';
 @Component
 struct MainIndex {
   private mainModel: MainModel = MainModel.instant;
+  @State currDate: CJDateItem = null;
   @State records: Record[] = [];
   // @State days : Array<DayItem> = new Array();
 
@@ -23,7 +22,7 @@ struct MainIndex {
   }
 
   build() {
-    Column({ space: 16 }) {
+    Column({ space: 24 }) {
       CJCalendar({
         optMode : OptMode.NORMAL,
 
@@ -32,8 +31,9 @@ struct MainIndex {
         todayFontColor: $r('app.color.blue_light'),
 
         onDateChange: (date: CJDateItem) => {
+          this.currDate = date
           this.records = date.records
-          Logger.debug(JSON.stringify(this.records))
+          Logger.debug(JSON.stringify(this.currDate.records))
         }
       })
         .height('50%')

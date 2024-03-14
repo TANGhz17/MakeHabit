@@ -43,9 +43,14 @@ class RecordModel {
     return DbUtil.delete(predicates)
   }
 
-  async queryByDate(date: number): Promise<Record[]>{
+  async queryByDate(date: Date): Promise<Record[]>{
+    let startTime = date.getTime()
+    date.setHours(23)
+    date.setMinutes(59)
+    date.setSeconds(59)
+    let endTime = date.getTime()
     let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
-    predicates.equalTo(COLUMNS[1].columnName,date)
+    predicates.between(COLUMNS[1].columnName, startTime, endTime)
     return DbUtil.queryForList<Record>(predicates, COLUMNS)
   }
 

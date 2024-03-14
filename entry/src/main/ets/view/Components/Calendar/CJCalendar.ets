@@ -6,6 +6,8 @@ import { LunarCalendar } from './LunarCalendar'
 import RecordModel from '../../../model/RecordModel';
 import Record from '../../../viewmodel/Record';
 
+// CJCalendar
+
 const TAG = "CJCalendar"
 
 /**
@@ -663,7 +665,7 @@ export struct CJCalendar {
   private hasRecordWithDates(){
     this.dates.forEach(date =>{
       let tempDate: Date = new Date(date.fullYear, date.month, date.date)
-      RecordModel.queryByDate(tempDate.getTime())
+      RecordModel.queryByDate(tempDate)
         .then(records => {
           if (records.length > 0){
             Logger.debug(tempDate.toDateString() + '有 记录');

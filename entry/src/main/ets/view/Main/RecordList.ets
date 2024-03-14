@@ -24,34 +24,45 @@ export struct RecordList {
   }
 
   build() {
-    Column() {
-      Row() {
-        Text('RecordList')
-          .fontSize(FontSize.LARGE)
-          .fontColor($r('app.color.blue_light'))
-          .textAlign(TextAlign.Start)
-          .onClick(() => {
-            this.getHabits()
+    List({ space: 16 }) {
+      ForEach(this.records, (record: Record) => {
+        ListItem() {
+          RecordListItem({
+            habitName: this.habits[record.habitId].name,
+            time: record.createTime
           })
-      }
-      .align(Alignment.Start)
-
-      List({ space: 16 }) {
-        ForEach(this.records, (record: Record) => {
-          ListItem() {
-            Row() {
-              Text(this.habits[record.habitId].name)
-                .fontSize(FontSize.SMALL)
-                .fontColor("#252a34")
-                .textAlign(TextAlign.Start)
-            }
-          }
-        })
-      }
-      .width('100%')
-      .layoutWeight(1)
-      .alignListItem(ListItemAlign.Start)
+        }
+      })
     }
+    .width('100%')
+    .layoutWeight(1)
+    .alignListItem(ListItemAlign.Start)
+  }
+}
 
+@Component
+export struct RecordListItem{
+  private habitName: string
+  private time: number
+  private date: Date
+
+  aboutToAppear(){
+    let that = this
+    that.date = new Date()
+    that.date.setTime(this.time)
+  }
+
+  build() {
+      Row() {
+        Text(this.habitName)
+          .fontSize(FontSize.LARGE)
+          .fontColor("#252a34")
+          .textAlign(TextAlign.Start)
+        Text(this.date.toString())
+          .fontSize(FontSize.SMALL)
+          .fontColor("#252a34")
+          .textAlign(TextAlign.Center)
+      }
+    .width('100%')
   }
 }
