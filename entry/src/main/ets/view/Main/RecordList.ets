@@ -24,7 +24,7 @@ export struct RecordList {
   }
 
   build() {
-    List({ space: 16 }) {
+    List({ space: 12 }) {
       ForEach(this.records, (record: Record) => {
         ListItem() {
           RecordListItem({
@@ -32,11 +32,15 @@ export struct RecordList {
             time: record.createTime
           })
         }
-      })
+      }, (record: Record) => JSON.stringify(record))
     }
-    .width('100%')
+    .padding({
+      left: 10,
+      right: 10
+    })
+    .listDirection(Axis.Vertical)
     .layoutWeight(1)
-    .alignListItem(ListItemAlign.Start)
+    .margin(12)
   }
 }
 
@@ -53,7 +57,7 @@ export struct RecordListItem{
   }
 
   build() {
-      Row() {
+    Row() {
         Text(this.habitName)
           .fontSize(FontSize.LARGE)
           .fontColor("#252a34")
@@ -63,6 +67,10 @@ export struct RecordListItem{
           .fontColor("#252a34")
           .textAlign(TextAlign.Center)
       }
+    // .padding({
+    //   left: 10,
+    //   right: 10
+    // })
     .width('100%')
   }
 }
