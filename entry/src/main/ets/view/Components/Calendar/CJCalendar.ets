@@ -850,7 +850,7 @@ export struct CJCalendar {
       .width("100%")
 
       // timeComponent
-      if (this.showTime) {
+      /*if (this.showTime) {
         Row() {
           Row() {
             CustomTextPicker({
@@ -910,7 +910,6 @@ export struct CJCalendar {
               // .height(40)
               .width(this.timeCellWidth)
           }
-
 
           // Blank()
 
@@ -983,7 +982,7 @@ export struct CJCalendar {
         .width("100%")
         .padding({ left: 12, right: 12 })
         .justifyContent(FlexAlign.SpaceBetween)
-      }
+      }*/
 
     }
     .width("100%")

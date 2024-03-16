@@ -3,7 +3,7 @@ import { CJCalendar, CJDateItem, OptMode } from '../view/Components/Calendar/CJC
 import { CommonConstants } from '../common/constants/CommonConstants'
 import Logger from '../common/utils/Logger'
 import MainModel from '../viewmodel/MainViewModel';
-import { RecordList } from '../view/Main/RecordList';
+import { RecordList } from '../view/Components/RecordList';
 import Record from '../viewmodel/Record';
 import DimensionUtil from '../common/utils/DimensionUtil';
 
@@ -15,7 +15,6 @@ struct MainIndex {
   @State currDate: CJDateItem = null;
   @State records: Record[] = [];
 
-  @State handlePopup: boolean = false
   // @State days : Array<DayItem> = new Array();
 
   aboutToAppear(){
@@ -40,14 +39,14 @@ struct MainIndex {
         }
       })
 
-      // this.records.forEach()
-      // this.currDate.records 'this.currDate' does not comply with the UI component syntax. <etsLint>
+
       RecordList({records:$records})
 
       Blank()
 
       Button() {
-        Image($r('app.media.ic_public_add_norm')).objectFit(ImageFit.Fill)
+        Image($r('app.media.ic_public_add_norm'))
+          // .objectFit(ImageFit.Fill)
       }
       .backgroundColor($r('app.color.trans_parent'))
       .width(DimensionUtil.getVp($r('app.float.new_record_button_size')))
@@ -57,23 +56,15 @@ struct MainIndex {
         top: DimensionUtil.getVp($r('app.float.new_record_button_margin_vertical'))
       })
       .onClick(() => {
-        // router.pushUrl({ url: 'pages/DetailIndex' });
-        this.handlePopup = !this.handlePopup
+        router.pushUrl({
+          url: 'pages/DetailIndex',
+          params: {
+            date: JSON.stringify(this.currDate)
+          }});
       })
-      .bindPopup(this.handlePopup, {
-        message: 'This is a popup with Add',
-        onStateChange: (e)=> { // 返回当前的气泡状态
-          if (!e.isVisible) {
-            this.handlePopup = false
-          }
-        }
-      })
-
     }
-    .padding(16)
     .width(CommonConstants.FULL_LENGTH)
     .height(CommonConstants.FULL_LENGTH)
-    .alignItems(HorizontalAlign.Start)
     .backgroundColor($r('app.color.grey_light'))
   }
 }

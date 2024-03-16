@@ -2,11 +2,11 @@
   "float": [
     {
       "name": "new_record_button_size",
-      "value": "48"
+      "value": "24"
     },
     {
       "name": "new_record_button_margin_vertical",
-      "value": "24"
+      "value": "12"
     },
     {
       "name": "record_list_space",

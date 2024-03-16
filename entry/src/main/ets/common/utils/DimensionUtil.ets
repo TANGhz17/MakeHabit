@@ -8,12 +8,12 @@ let context = getContext(this);
 /**
  * Design drawing width.
  */
-const DESIGN_WIDTH = 360;
+const DESIGN_WIDTH = 1228 / 3;
 
 /**
  * Design drawing height.
  */
-const DESIGN_HEIGHT = 780;
+const DESIGN_HEIGHT = 2700 / 3;
 
 /**
  * Fits tools with different sizes and lengths.
