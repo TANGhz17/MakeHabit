@@ -1,8 +1,48 @@
 {
   "float": [
     {
-      "name": "float_1",
-      "value": "30.6"
+      "name": "record_list_space",
+      "value": "12"
+    },
+    {
+      "name": "record_list_content_distance",
+      "value": "12"
+    },
+    {
+      "name": "records_item_noon_font_size",
+      "value": "16"
+    },
+    {
+      "name": "records_item_time_font_size",
+      "value": "24"
+    },
+    {
+      "name": "records_item_time_margin_left",
+      "value": "4"
+    },
+    {
+      "name": "records_item_dec_font_size",
+      "value": "14"
+    },
+    {
+      "name": "records_item_dec_margin_top",
+      "value": "2"
+    },
+    {
+      "name": "records_item_toggle_width",
+      "value": "36"
+    },
+    {
+      "name": "records_item_toggle_height",
+      "value": "20"
+    },
+    {
+      "name": "records_item_height",
+      "value": "72"
+    },
+    {
+      "name": "records_item_radius",
+      "value": "24"
     }
   ]
 }

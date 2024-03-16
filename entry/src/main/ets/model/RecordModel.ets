@@ -50,7 +50,9 @@ class RecordModel {
     date.setSeconds(59)
     let endTime = date.getTime()
     let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
-    predicates.between(COLUMNS[1].columnName, startTime, endTime)
+    predicates
+      .between(COLUMNS[1].columnName, startTime, endTime)
+      .orderByAsc(COLUMNS[1].columnName)        // 升序排列
     return DbUtil.queryForList<Record>(predicates, COLUMNS)
   }
 

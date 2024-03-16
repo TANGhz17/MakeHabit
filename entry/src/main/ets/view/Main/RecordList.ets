@@ -1,12 +1,14 @@
-import { FontSize } from '../../common/constants/CommonConstants';
+import { CommonConstants } from '../../common/constants/CommonConstants';
+import DimensionUtil from '../../common/utils/DimensionUtil';
 import Logger from '../../common/utils/Logger';
 import HabitModel from '../../model/HabitModel';
 import Habit from '../../viewmodel/Habit';
+import MainModel from '../../viewmodel/MainViewModel';
 import Record from '../../viewmodel/Record';
 
 @Component
 export struct RecordList {
-  private habits: Habit[];
+  @State habits: Habit[] = [];
   @Link records: Record[];
 
   aboutToAppear() {
@@ -28,49 +30,71 @@ export struct RecordList {
       ForEach(this.records, (record: Record) => {
         ListItem() {
           RecordListItem({
-            habitName: this.habits[record.habitId].name,
-            time: record.createTime
+            habits: $habits,
+            record: record
           })
         }
+
       }, (record: Record) => JSON.stringify(record))
     }
     .padding({
-      left: 10,
-      right: 10
+      left: DimensionUtil.getVp($r('app.float.record_list_content_distance')),
+      right: DimensionUtil.getVp($r('app.float.record_list_content_distance'))
     })
     .listDirection(Axis.Vertical)
-    .layoutWeight(1)
-    .margin(12)
+    .layoutWeight(CommonConstants.DEFAULT_LAYOUT_WEIGHT)
+    .margin({ top: DimensionUtil.getVp($r('app.float.record_list_content_distance')) })
   }
 }
 
 @Component
-export struct RecordListItem{
-  private habitName: string
-  private time: number
+export struct RecordListItem {
+  @Link habits: Habit[];
+  @State record: Record = null;
+
+  private mainModel: MainModel = MainModel.instant;
   private date: Date
 
-  aboutToAppear(){
+  aboutToAppear() {
     let that = this
     that.date = new Date()
-    that.date.setTime(this.time)
+    that.date.setTime(this.record.createTime)
   }
 
   build() {
     Row() {
-        Text(this.habitName)
-          .fontSize(FontSize.LARGE)
-          .fontColor("#252a34")
-          .textAlign(TextAlign.Start)
-        Text(this.date.toString())
-          .fontSize(FontSize.SMALL)
-          .fontColor("#252a34")
-          .textAlign(TextAlign.Center)
+      Column() {
+        Row() {
+          Text(this.mainModel.getNoonContent(this.date))
+            .CommonTextAttr(DimensionUtil.getVp($r('app.float.records_item_noon_font_size')),
+              FontWeight.Regular)
+          Text(this.habits[this.record.habitId].name)
+            .CommonTextAttr(DimensionUtil.getVp($r('app.float.records_item_time_font_size')),
+              FontWeight.Regular,
+              { left: DimensionUtil.getVp($r('app.float.records_item_time_margin_left')) })
+        }
       }
-    // .padding({
-    //   left: 10,
-    //   right: 10
-    // })
-    .width('100%')
+      .width(CommonConstants.FULL_LENGTH)
+      .alignItems(HorizontalAlign.Start)
+      .layoutWeight(CommonConstants.DEFAULT_LAYOUT_WEIGHT)
+    }
+    .padding({
+      left: DimensionUtil.getVp($r('app.float.record_list_content_distance')),
+      right: DimensionUtil.getVp($r('app.float.record_list_content_distance'))
+    })
+    .width(CommonConstants.FULL_LENGTH)
+    .height(DimensionUtil.getVp($r('app.float.records_item_height')))
+    .backgroundColor(Color.White)
+    .borderRadius(DimensionUtil.getVp($r('app.float.records_item_radius')))
   }
+}
+
+@Extend(Text)
+function CommonTextAttr(fontSize: number, fontWeight: number, margin?: Margin,
+                                      opacity?: Resource) {
+  .fontColor($r('app.color.grey_divider'))
+  .fontSize(fontSize)
+  .fontWeight(fontWeight)
+  .margin(margin != undefined ? margin : 0)
+  .opacity(opacity != undefined ? opacity : 1)
 }

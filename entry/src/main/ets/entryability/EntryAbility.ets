@@ -32,6 +32,9 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     Logger.info('Ability onWindowStageCreate');
 
+    let globalDisplay: display.Display = display.getDefaultDisplaySync();
+    GlobalContext.getContext().setObject('globalDisplay', globalDisplay);
+
     windowStage.loadContent('pages/MainIndex', (err, data) => {
       if (err.code) {
         Logger.error('Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
