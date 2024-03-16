@@ -5,6 +5,7 @@ import Logger from '../common/utils/Logger'
 import MainModel from '../viewmodel/MainViewModel';
 import { RecordList } from '../view/Main/RecordList';
 import Record from '../viewmodel/Record';
+import DimensionUtil from '../common/utils/DimensionUtil';
 
 @Entry
 @Preview
@@ -13,6 +14,8 @@ struct MainIndex {
   private mainModel: MainModel = MainModel.instant;
   @State currDate: CJDateItem = null;
   @State records: Record[] = [];
+
+  @State handlePopup: boolean = false
   // @State days : Array<DayItem> = new Array();
 
   aboutToAppear(){
@@ -36,13 +39,35 @@ struct MainIndex {
           Logger.debug(JSON.stringify(this.currDate.records))
         }
       })
-        .height('50%')
 
       // this.records.forEach()
       // this.currDate.records 'this.currDate' does not comply with the UI component syntax. <etsLint>
       RecordList({records:$records})
-        .width('100%')
-        .height('50%')
+
+      Blank()
+
+      Button() {
+        Image($r('app.media.ic_public_add_norm')).objectFit(ImageFit.Fill)
+      }
+      .backgroundColor($r('app.color.trans_parent'))
+      .width(DimensionUtil.getVp($r('app.float.new_record_button_size')))
+      .height(DimensionUtil.getVp($r('app.float.new_record_button_size')))
+      .margin({
+        bottom: DimensionUtil.getVp($r('app.float.new_record_button_margin_vertical')),
+        top: DimensionUtil.getVp($r('app.float.new_record_button_margin_vertical'))
+      })
+      .onClick(() => {
+        // router.pushUrl({ url: 'pages/DetailIndex' });
+        this.handlePopup = !this.handlePopup
+      })
+      .bindPopup(this.handlePopup, {
+        message: 'This is a popup with Add',
+        onStateChange: (e)=> { // 返回当前的气泡状态
+          if (!e.isVisible) {
+            this.handlePopup = false
+          }
+        }
+      })
 
     }
     .padding(16)
