@@ -25,6 +25,7 @@ const COLUMNS: ColumnInfo[] = [
 ]
 
 class HabitModel {
+
   getCreateTableSql(): string{
     // return SQL_CREATE_TABLE;
     return 'CREATE TABLE IF NOT EXISTS ' + TABLE_NAME +
@@ -54,7 +55,7 @@ class HabitModel {
     return DbUtil.queryForList<Habit>(predicates, COLUMNS)
   }
 
-  async queryAllHabit(): Promise<Habit[]>{
+  async queryAllHabits(): Promise<Habit[]>{
     let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
     predicates.isNotNull(COLUMNS[1].columnName)
     return DbUtil.queryForList<Habit>(predicates, COLUMNS)

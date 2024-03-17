@@ -1,7 +1,7 @@
 import Logger from '../common/utils/Logger'
 import habitModel from '../model/HabitModel';
 import RecordModel from '../model/RecordModel';
-import { CJDateItem } from '../view/Components/Calendar/CJCalendar';
+import { CJDateItem } from '../view/Calendar/CJCalendar';
 import Habit from './Habit'
 import Record from './Record'
 
@@ -10,13 +10,9 @@ import Record from './Record'
  */
 export default class MainViewModel {
   static instant: MainViewModel = new MainViewModel();
-  private habits: Array<Habit>;
-  private records: Array<Record>;
 
   // 构造 函数
   constructor() {
-    this.habits = new Array();
-    this.records = new Array();
   }
 
   addHabitsToDB() {

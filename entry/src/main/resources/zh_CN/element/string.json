@@ -11,6 +11,34 @@
     {
       "name": "EntryAbility_label",
       "value": "Label"
+    },
+    {
+      "name": "confirm",
+      "value": "确定"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
+    },
+    {
+      "name": "reason",
+      "value": "通知"
+    },
+    {
+      "name": "delete",
+      "value": "删除"
+    },
+    {
+      "name": "repeat_name",
+      "value": "重复"
+    },
+    {
+      "name": "new_record",
+      "value": "新记录"
+    },
+    {
+      "name": "update_record",
+      "value": "更新记录"
     }
   ]
 }

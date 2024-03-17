@@ -1,12 +1,64 @@
 {
   "float": [
     {
+      "name": "records_item_desc_text_opacity",
+      "value": "0.6"
+    },
+    {
+      "name": "divider_opacity",
+      "value": "0.05"
+    },
+    {
+      "name": "setting_item_content_font_opacity",
+      "value": "0.6"
+    },
+    {
+      "name": "page_title_height",
+      "value": "56"
+    },
+    {
+      "name": "content_margin_body",
+      "value": "16"
+    },
+    {
+      "name": "title_horizon_margin",
+      "value": "24"
+    },
+    {
+      "name": "title_font_size",
+      "value": "24"
+    },
+    {
       "name": "new_record_button_size",
       "value": "24"
     },
     {
       "name": "new_record_button_margin_vertical",
       "value": "12"
+    },
+    {
+      "name": "title_button_size",
+      "value": "24"
+    },
+    {
+      "name": "delete_button_width",
+      "value": "120"
+    },
+    {
+      "name": "delete_button_height",
+      "value": "40"
+    },
+    {
+      "name": "delete_button_font_size",
+      "value": "16"
+    },
+    {
+      "name": "delete_button_radius",
+      "value": "20"
+    },
+    {
+      "name": "delete_button_margin_bottom",
+      "value": "24"
     },
     {
       "name": "record_list_space",
@@ -51,6 +103,18 @@
     {
       "name": "records_item_radius",
       "value": "24"
+    },
+    {
+      "name": "detail_title_font_size",
+      "value": "20"
+    },
+    {
+      "name": "title_line_height",
+      "value": "28"
+    },
+    {
+      "name": "title_margin",
+      "value": "16"
     }
   ]
 }

@@ -1,11 +1,11 @@
 import router from '@ohos.router';
-import { CJCalendar, CJDateItem, OptMode } from '../view/Components/Calendar/CJCalendar'
+import { CJCalendar, CJDateItem, OptMode } from '../view/Calendar/CJCalendar'
 import { CommonConstants } from '../common/constants/CommonConstants'
+import DimensionUtil from '../common/utils/DimensionUtil';
 import Logger from '../common/utils/Logger'
 import MainModel from '../viewmodel/MainViewModel';
-import { RecordList } from '../view/Components/RecordList';
+import { RecordList } from '../view/RecordList';
 import Record from '../viewmodel/Record';
-import DimensionUtil from '../common/utils/DimensionUtil';
 
 @Entry
 @Preview
@@ -15,16 +15,13 @@ struct MainIndex {
   @State currDate: CJDateItem = null;
   @State records: Record[] = [];
 
-  // @State days : Array<DayItem> = new Array();
-
   aboutToAppear(){
-    let that = this;
-    that.mainModel.addHabitsToDB()
-    that.mainModel.addRecordsToDB()
+    this.mainModel.addHabitsToDB()
+    this.mainModel.addRecordsToDB()
   }
 
   build() {
-    Column({ space: 24 }) {
+    Column({ space: 12 }) {
       CJCalendar({
         optMode : OptMode.NORMAL,
 
@@ -39,13 +36,13 @@ struct MainIndex {
         }
       })
 
-
       RecordList({records:$records})
 
       Blank()
 
       Button() {
-        Image($r('app.media.ic_public_add_norm'))
+        Image($r('app.media.ic_public_add_norm_filled')).objectFit(ImageFit.Fill)
+          .fillColor('#03A9F4')
           // .objectFit(ImageFit.Fill)
       }
       .backgroundColor($r('app.color.trans_parent'))
@@ -59,7 +56,7 @@ struct MainIndex {
         router.pushUrl({
           url: 'pages/DetailIndex',
           params: {
-            date: JSON.stringify(this.currDate)
+            date: new Date(this.currDate.fullYear,this.currDate.month,this.currDate.date)
           }});
       })
     }

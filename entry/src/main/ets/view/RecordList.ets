@@ -1,10 +1,9 @@
-import { CommonConstants } from '../../common/constants/CommonConstants';
-import DimensionUtil from '../../common/utils/DimensionUtil';
-import Logger from '../../common/utils/Logger';
-import HabitModel from '../../model/HabitModel';
-import Habit from '../../viewmodel/Habit';
-import MainModel from '../../viewmodel/MainViewModel';
-import Record from '../../viewmodel/Record';
+import { CommonConstants } from '../common/constants/CommonConstants';
+import DimensionUtil from '../common/utils/DimensionUtil';
+import HabitModel from '../model/HabitModel';
+import Habit from '../viewmodel/Habit';
+import MainModel from '../viewmodel/MainViewModel';
+import Record from '../viewmodel/Record';
 
 @Component
 export struct RecordList {
@@ -12,16 +11,13 @@ export struct RecordList {
   @Link records: Record[];
 
   aboutToAppear() {
-    let that = this
-    that.getHabits()
+    this.syncHabits()
   }
 
-  getHabits() {
-    let that = this
-    HabitModel.queryAllHabit()
+  syncHabits() {
+    HabitModel.queryAllHabits()
       .then(habits => {
-        that.habits = habits
-        Logger.debug('habits have ', this.habits.length.toString())
+        this.habits = habits
       })
   }
 
@@ -51,14 +47,21 @@ export struct RecordList {
 export struct RecordListItem {
   @Link habits: Habit[];
   @State record: Record = null;
-
   private mainModel: MainModel = MainModel.instant;
-  private date: Date
+  private date: Date = new Date();
+  private habit: Habit = null;
 
   aboutToAppear() {
-    let that = this
-    that.date = new Date()
-    that.date.setTime(this.record.createTime)
+    this.date.setTime(this.record.createTime)
+    this.getHabitFromArray();
+  }
+
+  getHabitFromArray() {
+    this.habits.forEach(habit => {
+      if (habit.id == this.record.habitId) {
+        this.habit = habit
+      }
+    })
   }
 
   build() {
@@ -68,10 +71,11 @@ export struct RecordListItem {
           Text(this.mainModel.getNoonContent(this.date))
             .CommonTextAttr(DimensionUtil.getVp($r('app.float.records_item_noon_font_size')),
               FontWeight.Regular)
-          Text(this.habits[this.record.habitId].name)
+          Text(this.habit.name)
             .CommonTextAttr(DimensionUtil.getVp($r('app.float.records_item_time_font_size')),
               FontWeight.Regular,
               { left: DimensionUtil.getVp($r('app.float.records_item_time_margin_left')) })
+
         }
       }
       .width(CommonConstants.FULL_LENGTH)
@@ -89,8 +93,7 @@ export struct RecordListItem {
   }
 }
 
-@Extend(Text)
-function CommonTextAttr(fontSize: number, fontWeight: number, margin?: Margin,
+@Extend(Text) function CommonTextAttr(fontSize: number, fontWeight: number, margin?: Margin,
                                       opacity?: Resource) {
   .fontColor($r('app.color.grey_divider'))
   .fontSize(fontSize)

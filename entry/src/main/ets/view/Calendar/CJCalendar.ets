@@ -1,10 +1,10 @@
 import MeasureText from '@ohos.measure';
 import font from '@ohos.font';
-import Logger from '../../../common/utils/Logger'
+import Logger from '../../common/utils/Logger'
 import CustomTextPicker from './CustomTextPicker';
 import { LunarCalendar } from './LunarCalendar'
-import RecordModel from '../../../model/RecordModel';
-import Record from '../../../viewmodel/Record';
+import RecordModel from '../../model/RecordModel';
+import Record from '../../viewmodel/Record';
 
 // CJCalendar
 
