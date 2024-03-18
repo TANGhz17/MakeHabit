@@ -109,6 +109,14 @@
       "value": "20"
     },
     {
+      "name": "date_picker_height",
+      "value": "200"
+    },
+    {
+      "name": "date_picker_padding_horizon",
+      "value": "24"
+    },
+    {
       "name": "title_line_height",
       "value": "28"
     },
