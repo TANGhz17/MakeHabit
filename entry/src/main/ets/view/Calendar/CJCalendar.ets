@@ -41,7 +41,7 @@ export class CJDateItem {
   isPre?: boolean // 是否是上一个月的 / 在startDate 之前
   isNext?: boolean // 是否是下一个月的 / 在endDate 之后
   // hasRecord?: boolean // 是否有记录
-  records?: Record[]  // 存储和查询到的日期内的记录信息
+  records?: Record[] // 存储和查询到的日期内的记录信息
 
   constructor(fullYear?: number, month?: number,
               date?: number, day?: number,
@@ -370,6 +370,7 @@ export struct CJCalendar {
 
   private today: Date = new Date() // 当天
 
+  showDate: boolean = true // 是否显示日期选择
   showTime: boolean = false // 是否显示时间选择
   timeFontSize: number | string | Resource = 18 // 时间字体大小
   timeFontColor: ResourceColor // 时间字体大小
@@ -662,12 +663,12 @@ export struct CJCalendar {
   }
 
   // 查询加载的日期在数据库里是否有记录
-  private hasRecordWithDates(){
-    this.dates.forEach(date =>{
+  private hasRecordWithDates() {
+    this.dates.forEach(date => {
       let tempDate: Date = new Date(date.fullYear, date.month, date.date)
       RecordModel.queryByDate(tempDate)
         .then(records => {
-          if (records.length > 0){
+          if (records.length > 0) {
             Logger.debug(tempDate.toDateString() + '有 记录');
             date.records = records
           }
@@ -752,105 +753,106 @@ export struct CJCalendar {
 
   build() {
     Column() {
-
-      // topTitleLayout
-      Row() {
-        // titleLeftLayout
-        Column() {
-          if (this.titleLeftLayout) {
-            this.titleLeftLayout(this.hasPre)
-          } else {
-            Image($r("app.media.ic_public_arrow_left"))
-              .width(28)
-              .fillColor(this.hasPre ? this.itemFontColor : this.disabledFontColor)
-              .aspectRatio(1)
-          }
-        }
-        .justifyContent(FlexAlign.Center)
-        .height("100%")
-        .aspectRatio(1)
-        .onClick(() => {
-          if (this.hasPre) {
-            this.preMonth()
-          }
-        })
-
-        Blank()
-
-        // titleCenterLayout
-        if (this.titleCenterLayout) {
-          this.titleCenterLayout()
-        } else {
-          Row() {
-            Text(this.title)
-              .fontSize(this.titleFontSize)
-              .fontColor(this.titleFontColor)
-            if ((this.currYear == this.today.getFullYear() && this.currMonth != this.today.getMonth()
-            || this.currYear != this.today.getFullYear()) && this.showFastToday) {
-              Row() {
-                if (this.fastTodayLayout) {
-                  this.fastTodayLayout()
-                } else {
-                  Text("今")
-                    .fontSize(this.fastTodayFontSize)
-                    .fontColor(this.fastTodayFontColor)
-                    .backgroundColor(this.fastTodayBg)
-                    .borderRadius(50)
-                    .padding(4)
-                    .margin({ left: 4 })
-                }
-              }
-              .onClick(() => {
-                this.backToday()
-              })
+      if (this.showDate) {
+        // topTitleLayout
+        Row() {
+          // titleLeftLayout
+          Column() {
+            if (this.titleLeftLayout) {
+              this.titleLeftLayout(this.hasPre)
+            } else {
+              Image($r("app.media.ic_public_arrow_left"))
+                .width(28)
+                .fillColor(this.hasPre ? this.itemFontColor : this.disabledFontColor)
+                .aspectRatio(1)
             }
-
           }
-        }
+          .justifyContent(FlexAlign.Center)
+          .height("100%")
+          .aspectRatio(1)
+          .onClick(() => {
+            if (this.hasPre) {
+              this.preMonth()
+            }
+          })
 
-        Blank()
+          Blank()
 
-        // titleRightLayout
-        Column() {
-          if (this.titleRightLayout) {
-            this.titleRightLayout(this.hasNext)
+          // titleCenterLayout
+          if (this.titleCenterLayout) {
+            this.titleCenterLayout()
           } else {
-            Image($r("app.media.ic_public_arrow_right_filled"))
-              .fillColor(this.hasNext ? this.itemFontColor : this.disabledFontColor)
-              .width(28)
-              .aspectRatio(1)
+            Row() {
+              Text(this.title)
+                .fontSize(this.titleFontSize)
+                .fontColor(this.titleFontColor)
+              if ((this.currYear == this.today.getFullYear() && this.currMonth != this.today.getMonth()
+              || this.currYear != this.today.getFullYear()) && this.showFastToday) {
+                Row() {
+                  if (this.fastTodayLayout) {
+                    this.fastTodayLayout()
+                  } else {
+                    Text("今")
+                      .fontSize(this.fastTodayFontSize)
+                      .fontColor(this.fastTodayFontColor)
+                      .backgroundColor(this.fastTodayBg)
+                      .borderRadius(50)
+                      .padding(4)
+                      .margin({ left: 4 })
+                  }
+                }
+                .onClick(() => {
+                  this.backToday()
+                })
+              }
+
+            }
           }
+
+          Blank()
+
+          // titleRightLayout
+          Column() {
+            if (this.titleRightLayout) {
+              this.titleRightLayout(this.hasNext)
+            } else {
+              Image($r("app.media.ic_public_arrow_right_filled"))
+                .fillColor(this.hasNext ? this.itemFontColor : this.disabledFontColor)
+                .width(28)
+                .aspectRatio(1)
+            }
+          }
+          .justifyContent(FlexAlign.Center)
+          .height("100%")
+          .aspectRatio(1)
+          .onClick(() => {
+            if (this.hasNext) {
+              this.nextMonth()
+            }
+          })
         }
-        .justifyContent(FlexAlign.Center)
-        .height("100%")
-        .aspectRatio(1)
-        .onClick(() => {
-          if (this.hasNext) {
-            this.nextMonth()
-          }
-        })
-      }
-      .alignItems(VerticalAlign.Center)
-      .width("100%")
-      .height(this.titleHeight)
+        .alignItems(VerticalAlign.Center)
+        .width("100%")
+        .height(this.titleHeight)
 
-      // weeksTitle
-      Row() {
-        ForEach(this.weeks, (item, index) => {
-          this.createWeekTitle(item)
-        })
-      }
-      .alignItems(VerticalAlign.Center)
-      .height(this.weekTitleHeight)
+        // weeksTitle
+        Row() {
+          ForEach(this.weeks, (item, index) => {
+            this.createWeekTitle(item)
+          })
+        }
+        .alignItems(VerticalAlign.Center)
+        .height(this.weekTitleHeight)
 
-      // days
-      Flex({ wrap: FlexWrap.Wrap }) {
-        this.createCell()
+        // days
+        Flex({ wrap: FlexWrap.Wrap }) {
+          this.createCell()
+        }
+        .width("100%")
       }
-      .width("100%")
 
       // timeComponent
-      /*if (this.showTime) {
+      if (this.showTime) {
         Row() {
           Row() {
             CustomTextPicker({
@@ -982,7 +984,7 @@ export struct CJCalendar {
         .width("100%")
         .padding({ left: 12, right: 12 })
         .justifyContent(FlexAlign.SpaceBetween)
-      }*/
+      }
 
     }
     .width("100%")
