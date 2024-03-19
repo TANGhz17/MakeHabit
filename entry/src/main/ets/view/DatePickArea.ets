@@ -1,16 +1,18 @@
-import { DetailConstant } from '../common/constants/DetailConstant';
 import { CommonConstants } from '../common/constants/CommonConstants';
 import DimensionUtil from '../common/utils/DimensionUtil';
-import DayDataItem from '../viewmodel/DayDataItem';
-import { CJCalendar } from './Calendar/CJCalendar';
 
+@Preview
 @Component
 export default struct DatePickArea {
-  // @Link date: Date;
+  date: Date = new Date();
 
   private hours: string[];
   private minutes: string[];
   private seconds: string[];
+
+  aboutToAppear(){
+    this.initTime()
+  }
 
   initTime(){
     this.hours = []
@@ -28,24 +30,32 @@ export default struct DatePickArea {
   }
 
   build() {
-    /*Stack({ alignContent: Alignment.Center }) {
+    Stack({ alignContent: Alignment.Center }) {
       Row() {
-        ForEach(DetailConstant.DAY_DATA, (item: DayDataItem) => {
-          TextPicker({ range: item.data, selected: item.delSelect })
-            .layoutWeight(CommonConstants.DEFAULT_LAYOUT_WEIGHT)
-            .backgroundColor($r('app.color.grey_light'))
-            .onChange((value: string, index: number) => {
-              item.delSelect = index;
-            })
-        }, (item: DayDataItem) => JSON.stringify(item))
+        TextPicker({ range: this.hours, selected: this.date.getHours() })
+          .layoutWeight(CommonConstants.DEFAULT_LAYOUT_WEIGHT)
+          .backgroundColor($r('app.color.grey_light'))
+          .onChange((value: string, index: number) => {
+            this.date.setHours(index);
+          })
+        TextPicker({ range: this.minutes, selected: this.date.getMinutes() })
+          .layoutWeight(CommonConstants.DEFAULT_LAYOUT_WEIGHT)
+          .backgroundColor($r('app.color.grey_light'))
+          .onChange((value: string, index: number) => {
+            this.date.setMinutes(index);
+          })
+        TextPicker({ range: this.seconds, selected: this.date.getSeconds() })
+          .layoutWeight(CommonConstants.DEFAULT_LAYOUT_WEIGHT)
+          .backgroundColor($r('app.color.grey_light'))
+          .onChange((value: string, index: number) => {
+            this.date.setSeconds(index);
+          })
       }
     }
     .height(DimensionUtil.getVp($r('app.float.date_picker_height')))
     .padding({
       left: DimensionUtil.getVp($r('app.float.date_picker_padding_horizon')),
       right: DimensionUtil.getVp($r('app.float.date_picker_padding_horizon'))
-    })*/
-
-
+    })
   }
 }

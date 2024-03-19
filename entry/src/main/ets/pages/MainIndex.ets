@@ -56,7 +56,7 @@ struct MainIndex {
         router.pushUrl({
           url: 'pages/DetailIndex',
           params: {
-            date: this.currDate
+            date: new Date(this.currDate.fullYear,this.currDate.month,this.currDate.date)
           }});
       })
     }

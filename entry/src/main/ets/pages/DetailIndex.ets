@@ -4,7 +4,6 @@ import DimensionUtil from '../common/utils/DimensionUtil';
 import Logger from '../common/utils/Logger';
 import HabitModel from '../model/HabitModel';
 import BackContainer from '../view/BackContainer';
-import { CJCalendar, CJDateItem } from '../view/Calendar/CJCalendar';
 import DatePickArea from '../view/DatePickArea';
 import Habit from '../viewmodel/Habit';
 import Record from '../viewmodel/Record';
@@ -13,20 +12,24 @@ import Record from '../viewmodel/Record';
 @Preview
 @Component
 struct DetailIndex {
-  private currDate: CJDateItem = null;
+  @State currDate: Date = new Date();
 
   @State record: Record = null;
 
   @State habits: Habit[] = [];
 
   onPageShow() {
-    const params = router.getParams(); // 获取传递过来的参数对象
-    this.currDate = params['date']
-    Logger.debug('Detail get router Date: ', JSON.stringify(this.currDate))
+    const params = router.getParams() // 获取传递过来的参数对象
+    let date = params['date'] as Date
+    // this.currDate.setFullYear(date.getFullYear())
+    // this.currDate.setMonth(date.getMonth())
+    // this.currDate.setSeconds(date.getSeconds())
+
+    // Logger.debug('Detail get router Date: ', JSON.stringify(this.currDate))
   }
 
   setRecord(habitId: number){
-    this.record.createTime = this.currDate.time
+    this.record.createTime = this.currDate.getTime()
     this.record.habitId = habitId
   }
 
@@ -57,11 +60,11 @@ struct DetailIndex {
       }
 
       // 设置时间(不需要日期)
-      // DatePickArea({date:$currDate})
-      CJCalendar({
-        showDate : false,
-        showTime: true,
-      })
+      DatePickArea()
+      // CJCalendar({
+      //   showDate : false,
+      //   showTime: true,
+      // })
       // this.setTime(h m s)
 
       // 设置habitId
