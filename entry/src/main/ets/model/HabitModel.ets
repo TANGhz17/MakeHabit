@@ -57,7 +57,9 @@ class HabitModel {
 
   async queryAllHabits(): Promise<Habit[]>{
     let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
-    predicates.isNotNull(COLUMNS[1].columnName)
+    predicates
+      .isNotNull(COLUMNS[1].columnName)
+      .orderByAsc(COLUMNS[0].columnName)
     return DbUtil.queryForList<Habit>(predicates, COLUMNS)
   }
 

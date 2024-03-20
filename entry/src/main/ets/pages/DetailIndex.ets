@@ -13,7 +13,6 @@ import Record from '../viewmodel/Record';
 @Entry
 @Component
 struct DetailIndex {
-  private record: Record;
   @State habits: Habit[] = [];
   @State habitId: number = NaN;
 
@@ -36,23 +35,23 @@ struct DetailIndex {
     this.myDate = params['date']
   }
 
-  getDateTime() : number {
-    let date = new Date(this.myYear,this.myMonth,this.myDate,this.myHour,this.myMinute,this.mySecond)
-    return date.getTime()
+  getDate() : Date {
+    return new Date(this.myYear,this.myMonth,this.myDate,this.myHour,this.myMinute,this.mySecond)
   }
 
-  addRecordToDB(){
-    RecordModel.insert(this.record)
+  addRecordToDB(record: Record){
+    RecordModel.insert(record)
   }
 
-  setRecord(habitId: number) {
-    this.record = new Record(NaN, this.getDateTime(), habitId)
+  getRecord(habitId: number): Record {
+    return new Record(NaN, this.getDate().getTime(), habitId)
   }
 
   syncHabits() {
     HabitModel.queryAllHabits()
       .then(habits => {
         this.habits = habits
+        this.habitId = habits[0].id
       })
   }
 
@@ -74,8 +73,7 @@ struct DetailIndex {
           // Logger.debug('设置的时间是：', this.myYear + '年' + ( this.myMonth + 1 ) + '月' + this.myDate + '日')
           // Logger.debug('设置的时间是：', this.myHour + ':' + this.myMinute + ':' + this.mySecond)
           // Logger.debug('设置的时间是：', new Date(this.myYear,this.myMonth,this.myDate,this.myHour,this.myMinute,this.mySecond).getTime().toString())
-          this.setRecord(1)
-          this.addRecordToDB()
+          this.addRecordToDB(this.getRecord(this.habitId))
 
           router.back();
         })
