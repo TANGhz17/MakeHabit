@@ -3,7 +3,7 @@ const TAG = "LunarCalendar"
 export class LunarCalendar {
   /**
    * 获取阴历
-   * @param date
+   * @param myTime
    * @returns
    */
   static getLunarDate(date: Date) {
