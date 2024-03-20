@@ -4,6 +4,7 @@ import { DetailConstant } from '../common/constants/DetailConstant';
 import DimensionUtil from '../common/utils/DimensionUtil';
 import Logger from '../common/utils/Logger';
 import HabitModel from '../model/HabitModel';
+import RecordModel from '../model/RecordModel';
 import BackContainer from '../view/BackContainer';
 import { DatePickArea } from '../view/DatePickArea';
 import Habit from '../viewmodel/Habit';
@@ -12,15 +13,21 @@ import Record from '../viewmodel/Record';
 @Entry
 @Component
 struct DetailIndex {
-  private record: Record = null;
+  private record: Record;
   @State habits: Habit[] = [];
+  @State habitId: number = NaN;
 
   private myYear: number = 2000;
   private myMonth: number = 0;
   private myDate: number = 0;
+
   @State myHour: number = 0;
   @State myMinute: number = 0;
   @State mySecond: number = 0;
+
+  aboutToAppear(){
+    this.syncHabits()
+  }
 
   onPageShow() {
     const params = router.getParams() // 获取传递过来的参数对象
@@ -29,14 +36,17 @@ struct DetailIndex {
     this.myDate = params['date']
   }
 
-  setRecord(habitId: number) {
-    this.record.createTime = this.getDateTime()
-    this.record.habitId = habitId
-  }
-
   getDateTime() : number {
     let date = new Date(this.myYear,this.myMonth,this.myDate,this.myHour,this.myMinute,this.mySecond)
     return date.getTime()
+  }
+
+  addRecordToDB(){
+    RecordModel.insert(this.record)
+  }
+
+  setRecord(habitId: number) {
+    this.record = new Record(NaN, this.getDateTime(), habitId)
   }
 
   syncHabits() {
@@ -61,44 +71,18 @@ struct DetailIndex {
         .height(DimensionUtil.getVp($r('app.float.title_button_size')))
         .onClick(() => {
           // sql 插入record数据
-          Logger.debug('设置的时间是：', this.myYear + '年' + ( this.myMonth + 1 ) + '月' + this.myDate + '日')
-          Logger.debug('设置的时间是：', this.myHour + ':' + this.myMinute + ':' + this.mySecond)
-          Logger.debug('设置的时间是：', new Date(this.myYear,this.myMonth,this.myDate,this.myHour,this.myMinute,this.mySecond).getTime().toString())
+          // Logger.debug('设置的时间是：', this.myYear + '年' + ( this.myMonth + 1 ) + '月' + this.myDate + '日')
+          // Logger.debug('设置的时间是：', this.myHour + ':' + this.myMinute + ':' + this.mySecond)
+          // Logger.debug('设置的时间是：', new Date(this.myYear,this.myMonth,this.myDate,this.myHour,this.myMinute,this.mySecond).getTime().toString())
+          this.setRecord(1)
+          this.addRecordToDB()
+
           router.back();
         })
       }
 
       // 设置时间(不需要日期)
       DatePickArea({ myHour: $myHour, myMinute: $myMinute, mySecond: $mySecond })
-      /*Stack({ alignContent: Alignment.Center }) {
-        Row() {
-          TextPicker({ range: DetailConstant.Hours, selected: this.myTime.getHours() })
-            .layoutWeight(CommonConstants.DEFAULT_LAYOUT_WEIGHT)
-            .backgroundColor($r('app.color.grey_light'))
-            .onChange((value: string, index: number) => {
-              this.myHour = index;
-            })
-          TextPicker({ range: DetailConstant.Minutes, selected: this.myTime.getMinutes() })
-            .layoutWeight(CommonConstants.DEFAULT_LAYOUT_WEIGHT)
-            .backgroundColor($r('app.color.grey_light'))
-            .onChange((value: string, index: number) => {
-              this.myMinute = index;
-            })
-          TextPicker({ range: DetailConstant.Seconds, selected: this.myTime.getSeconds() })
-            .layoutWeight(CommonConstants.DEFAULT_LAYOUT_WEIGHT)
-            .backgroundColor($r('app.color.grey_light'))
-            .onChange((value: string, index: number) => {
-              this.mySecond = index;
-            })
-
-        }
-      }
-      .height(DimensionUtil.getVp($r('app.float.date_picker_height')))
-      .padding({
-        left: DimensionUtil.getVp($r('app.float.date_picker_padding_horizon')),
-        right: DimensionUtil.getVp($r('app.float.date_picker_padding_horizon'))
-      })*/
-      // this.setTime(h m s)
 
       // 设置habitId
 

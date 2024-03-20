@@ -1,7 +1,6 @@
 import { CommonConstants } from '../common/constants/CommonConstants';
 import { DetailConstant } from '../common/constants/DetailConstant';
 import DimensionUtil from '../common/utils/DimensionUtil';
-import Logger from '../common/utils/Logger';
 
 @Component
 export struct DatePickArea {

@@ -20,6 +20,10 @@ struct MainIndex {
     this.mainModel.addRecordsToDB()
   }
 
+  onBackPress(){
+
+  }
+
   build() {
     Column({ space: 12 }) {
       CJCalendar({

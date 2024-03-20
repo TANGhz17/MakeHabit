@@ -15,7 +15,7 @@ export default class MainViewModel {
   constructor() {
   }
 
-  addHabitsToDB() {
+  public addHabitsToDB() {
     let habits: Habit[] = [
       {
         id: 0, name: '锻炼', msg: '', intervalTime: NaN
@@ -32,7 +32,7 @@ export default class MainViewModel {
     })
   }
 
-  addRecordsToDB() {
+  public addRecordsToDB() {
     let records: Record[] = [
       {
         id: null, habitId: 1, createTime: new Date(2024, 2 - 1, 29).getTime()

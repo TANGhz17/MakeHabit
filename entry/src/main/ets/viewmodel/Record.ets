@@ -15,9 +15,9 @@ export default class Record{
    */
   habitId : number = 0;
 
-  constructor(id: number,
-              createTime : number,
-              habitId : number){
+  constructor(id?: number,
+              createTime?: number,
+              habitId?: number){
     this.id = id;
     this.createTime = createTime;
     this.habitId = habitId;
