@@ -14,20 +14,13 @@ import Record from '../viewmodel/Record';
 struct DetailIndex {
   private record: Record = null;
   @State habits: Habit[] = [];
-  private myTime: Date = new Date();
 
   private myYear: number = 2000;
   private myMonth: number = 0;
   private myDate: number = 0;
-  private myHour: number = 0;
-  private myMinute: number = 0;
-  private mySecond: number = 0;
-
-  aboutToAppear() {
-    this.myHour = this.myTime.getHours()
-    this.myMinute = this.myTime.getMinutes()
-    this.mySecond = this.myTime.getSeconds()
-  }
+  @State myHour: number = 0;
+  @State myMinute: number = 0;
+  @State mySecond: number = 0;
 
   onPageShow() {
     const params = router.getParams() // 获取传递过来的参数对象
@@ -76,8 +69,8 @@ struct DetailIndex {
       }
 
       // 设置时间(不需要日期)
-      // DatePickArea({ myHour: $myHour, myMinute: $myMinute, mySecond: $mySecond })
-      Stack({ alignContent: Alignment.Center }) {
+      DatePickArea({ myHour: $myHour, myMinute: $myMinute, mySecond: $mySecond })
+      /*Stack({ alignContent: Alignment.Center }) {
         Row() {
           TextPicker({ range: DetailConstant.Hours, selected: this.myTime.getHours() })
             .layoutWeight(CommonConstants.DEFAULT_LAYOUT_WEIGHT)
@@ -104,7 +97,7 @@ struct DetailIndex {
       .padding({
         left: DimensionUtil.getVp($r('app.float.date_picker_padding_horizon')),
         right: DimensionUtil.getVp($r('app.float.date_picker_padding_horizon'))
-      })
+      })*/
       // this.setTime(h m s)
 
       // 设置habitId
