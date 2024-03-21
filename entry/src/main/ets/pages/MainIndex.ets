@@ -12,6 +12,8 @@ import Record from '../viewmodel/Record';
 @Component
 struct MainIndex {
   private mainModel: MainModel = MainModel.instant;
+  @State showPage: boolean = true;
+
   @State currDate: CJDateItem = null;
   @State records: Record[] = [];
 
@@ -20,25 +22,31 @@ struct MainIndex {
     this.mainModel.addRecordsToDB()
   }
 
-  onBackPress(){
-
+  onPageShow(){
+    this.showPage = true
   }
 
   build() {
     Column({ space: 12 }) {
-      CJCalendar({
-        optMode : OptMode.NORMAL,
+      if (this.showPage){
+        CJCalendar({
+          optMode: OptMode.NORMAL,
 
-        recordIcoSize: 6,
+          recordIcoSize: 6,
 
-        todayFontColor: $r('app.color.blue_light'),
+          todayFontColor: $r('app.color.blue_light'),
 
-        onDateChange: (date: CJDateItem) => {
-          this.currDate = date
-          this.records = date.records
-          Logger.debug(JSON.stringify(this.currDate.records))
-        }
-      })
+          onDateChange: (date: CJDateItem) => {
+            this.currDate = date
+            if (date.records) {
+              this.records = date.records
+            } else {
+              this.records = []
+            }
+            Logger.debug(JSON.stringify(this.currDate.records))
+          }
+        })
+      }
 
       RecordList({records:$records})
 
@@ -57,6 +65,7 @@ struct MainIndex {
         top: DimensionUtil.getVp($r('app.float.new_record_button_margin_vertical'))
       })
       .onClick(() => {
+        this.showPage = false
         router.pushUrl({
           url: 'pages/DetailIndex',
           params: {
