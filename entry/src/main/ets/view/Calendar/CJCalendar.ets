@@ -141,7 +141,9 @@ struct CalenderCell {
         return this.todayFontColor
       }
       return this.itemFontColor
-    } else if (this.optMode == OptMode.RANGE) { // 一段时间选择
+    }
+    // 一段时间选择
+    /*else if (this.optMode == OptMode.RANGE) {
       if (this.selectItem && this.selectItem.time == this.item.time
       || this.selectItem2 && this.selectItem2.time == this.item.time) {
         if (this.item.isPre) {
@@ -158,7 +160,9 @@ struct CalenderCell {
         return this.todayFontColor
       }
       return this.itemFontColor
-    } else if (this.optMode == OptMode.MULTIPLE) { // 多选
+    }*/
+    // 多选
+    /*else if (this.optMode == OptMode.MULTIPLE) {
       if (!this.item.isPre && !this.item.isNext && this.checkInArrays() > -1) { //包含
         return this.selectFontColor
       } else if (this.item.isPre) {
@@ -169,7 +173,8 @@ struct CalenderCell {
         return this.todayFontColor
       }
       return this.itemFontColor
-    } else {
+    } */
+    else {
       if (this.item.isPre) {
         return this.disabledFontColor
       } else if (this.item.isNext) {
@@ -221,10 +226,12 @@ struct CalenderCell {
   isShowSelectBg() {
     if (this.optMode == OptMode.NORMAL || this.optMode == OptMode.SINGLE) { // 单选
       return this.selectItem && this.selectItem.time == this.item.time
-    } else if (this.optMode == OptMode.RANGE) { // 范围选择
+    }
+    else if (this.optMode == OptMode.RANGE) { // 范围选择
       return this.selectItem && this.selectItem.time == this.item.time
       || this.selectItem2 && this.selectItem2.time == this.item.time
-    } else if (this.optMode == OptMode.MULTIPLE) { // 多选
+    }
+    else if (this.optMode == OptMode.MULTIPLE) { // 多选
       return this.checkInArrays() > -1
     }
     return false
@@ -254,8 +261,8 @@ struct CalenderCell {
                   .opacity(this.selectOpacity)
                   .transition({ type: TransitionType.Insert, opacity: 1 })
                   .transition({ type: TransitionType.Delete, opacity: 0 })
-
-              } else if (this.rangeStyle == 2) { // 横条风格
+              }
+              else if (this.rangeStyle == 2) { // 横条风格
                 Column()
                   .opacity(this.selectOpacity)
                   .backgroundColor(this.getSelectItemBg())
@@ -289,6 +296,7 @@ struct CalenderCell {
                 .fontColor(this.getItemColor())
                 .fontWeight(this.itemFontWeight)
 
+              // 设置有记录的标识
               if (this.item.records) {
                 Circle()
                   .width(this.recordIcoSize)
@@ -369,6 +377,8 @@ export struct CJCalendar {
   rangeStyle: number = 2 // 1：圆形风格，2：横条风格
 
   private today: Date = new Date() // 当天
+
+  selectTime: Date;
 
   showDate: boolean = true // 是否显示日期选择
   showTime: boolean = false // 是否显示时间选择
@@ -606,6 +616,9 @@ export struct CJCalendar {
     if (this.optMode == OptMode.NORMAL || this.optMode == OptMode.SINGLE) {
       let temp = new CJDateItem()
       temp.time = this.today.getTime()
+      if (this.selectTime){
+        temp.time = this.selectTime.getTime()
+      }
       this.selectItem = temp
     }
     this.calcDatas()

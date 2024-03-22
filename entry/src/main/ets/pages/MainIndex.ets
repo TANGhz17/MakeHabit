@@ -17,6 +17,8 @@ struct MainIndex {
   @State currDate: CJDateItem = null;
   @State records: Record[] = [];
 
+  private bakeTime : Date;
+
   aboutToAppear(){
     this.mainModel.addHabitsToDB()
     this.mainModel.addRecordsToDB()
@@ -30,6 +32,8 @@ struct MainIndex {
     Column({ space: 12 }) {
       if (this.showPage){
         CJCalendar({
+          selectTime : this.bakeTime,
+
           optMode: OptMode.NORMAL,
 
           recordIcoSize: 6,
@@ -66,6 +70,7 @@ struct MainIndex {
       })
       .onClick(() => {
         this.showPage = false
+        this.bakeTime = new Date(this.currDate.fullYear, this.currDate.month, this.currDate.date)
         router.pushUrl({
           url: 'pages/DetailIndex',
           params: {
