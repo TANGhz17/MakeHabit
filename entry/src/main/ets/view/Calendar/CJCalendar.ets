@@ -108,7 +108,7 @@ struct CalenderCell {
   @Link selectedDates: Array<CJDateItem>
   @Prop hasPre: boolean
   @Prop hasNext: boolean
-  @ObjectLink item: CJDateItem
+  @Prop item: CJDateItem
   // 自定义每一项布局
   @BuilderParam public cellLayout?: (item: CJDateItem) => void = null
   @BuilderParam public todayLayout?: (item: CJDateItem) => void = null
@@ -374,7 +374,7 @@ export struct CJCalendar {
   showTime: boolean = false // 是否显示时间选择
   timeFontSize: number | string | Resource = 18 // 时间字体大小
   timeFontColor: ResourceColor // 时间字体大小
-  recordIcoSize: number | string | Resource = 4 // 有记录时的标志大小
+  recordIcoSize: number | string | Resource = 6 // 有记录时的标志大小
   private hours: string[] // 小时
   private minutes: string[] // 分钟
   private seconds: string[] // 秒
@@ -481,7 +481,7 @@ export struct CJCalendar {
   @Builder createCell() {
     ForEach(this.dates, (item: CJDateItem, index: number) => {
       CalenderCell({
-        item: item,
+        item: item, // 不允许将“常规”修饰属性“item”分配给“@ObjectLink”修饰属性“item”。<ArkTSCheck>
         cellLayout: this.cellLayout,
         itemFontSize: this.itemFontSize,
         itemFontColor: this.itemFontColor,
