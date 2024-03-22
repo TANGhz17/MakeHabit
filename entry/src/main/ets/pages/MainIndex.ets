@@ -6,6 +6,7 @@ import Logger from '../common/utils/Logger'
 import MainModel from '../viewmodel/MainViewModel';
 import { RecordList } from '../view/RecordList';
 import Record from '../viewmodel/Record';
+import RecordModel from '../model/RecordModel';
 
 @Entry
 @Preview
@@ -26,6 +27,15 @@ struct MainIndex {
 
   onPageShow(){
     this.showPage = true
+
+    if (this.bakeTime) {
+      RecordModel.queryByDate(this.bakeTime)
+        .then(records => {
+          if (records.length > 0) {
+            this.records = records
+          }
+        })
+    }
   }
 
   build() {
