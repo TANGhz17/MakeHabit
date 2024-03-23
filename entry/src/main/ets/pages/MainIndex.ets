@@ -1,22 +1,18 @@
 import router from '@ohos.router';
-import { CJCalendar, CJDateItem, OptMode } from '../view/Calendar/CJCalendar'
+import { CJCalendar, CJDateItem } from '../view/Calendar/CJCalendar'
 import { CommonConstants } from '../common/constants/CommonConstants'
 import DimensionUtil from '../common/utils/DimensionUtil';
 import Logger from '../common/utils/Logger'
 import MainModel from '../viewmodel/MainViewModel';
-import { RecordList } from '../view/RecordList';
-import Record from '../viewmodel/Record';
-import RecordModel from '../model/RecordModel';
 
 @Entry
 @Preview
 @Component
 struct MainIndex {
   private mainModel: MainModel = MainModel.instant;
-  @State showPage: boolean = true;
+  private showPage: boolean = true;
 
   @State currDate: CJDateItem = null;
-  @State records: Record[] = [];
 
   private bakeTime : Date;
 
@@ -27,15 +23,6 @@ struct MainIndex {
 
   onPageShow(){
     this.showPage = true
-
-    if (this.bakeTime) {
-      RecordModel.queryByDate(this.bakeTime)
-        .then(records => {
-          if (records.length > 0) {
-            this.records = records
-          }
-        })
-    }
   }
 
   build() {
@@ -44,25 +31,15 @@ struct MainIndex {
         CJCalendar({
           selectTime : this.bakeTime,
 
-          optMode: OptMode.NORMAL,
-
           recordIcoSize: 6,
 
           todayFontColor: $r('app.color.blue_light'),
 
           onDateChange: (date: CJDateItem) => {
             this.currDate = date
-            if (date.records) {
-              this.records = date.records
-            } else {
-              this.records = []
-            }
-            Logger.debug(JSON.stringify(this.currDate.records))
           }
         })
       }
-
-      RecordList({records:$records})
 
       Blank()
 
@@ -74,6 +51,7 @@ struct MainIndex {
       .backgroundColor($r('app.color.trans_parent'))
       .width(DimensionUtil.getVp($r('app.float.new_record_button_size')))
       .height(DimensionUtil.getVp($r('app.float.new_record_button_size')))
+      .position({x: '90%', y: '95%'})
       .margin({
         bottom: DimensionUtil.getVp($r('app.float.new_record_button_margin_vertical')),
         top: DimensionUtil.getVp($r('app.float.new_record_button_margin_vertical'))

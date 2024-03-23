@@ -44,6 +44,9 @@ class RecordModel {
   }
 
   async queryByDate(date: Date): Promise<Record[]>{
+    date.setHours(0)
+    date.setMinutes(0)
+    date.setSeconds(0)
     let startTime = date.getTime()
     date.setHours(23)
     date.setMinutes(59)
