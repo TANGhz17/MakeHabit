@@ -44,13 +44,9 @@ class RecordModel {
   }
 
   async queryByDate(date: Date): Promise<Record[]>{
-    date.setHours(0)
-    date.setMinutes(0)
-    date.setSeconds(0)
+    date.setHours(0,0,0,0)
     let startTime = date.getTime()
-    date.setHours(23)
-    date.setMinutes(59)
-    date.setSeconds(59)
+    date.setHours(23,59,59)
     let endTime = date.getTime()
     let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
     predicates

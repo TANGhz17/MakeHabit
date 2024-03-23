@@ -12,9 +12,7 @@ struct MainIndex {
   private mainModel: MainModel = MainModel.instant;
   private showPage: boolean = true;
 
-  @State currDate: CJDateItem = null;
-
-  private bakeTime : Date;
+  @State selectItem: CJDateItem = undefined;
 
   aboutToAppear(){
     this.mainModel.addHabitsToDB()
@@ -29,14 +27,14 @@ struct MainIndex {
     Column({ space: 12 }) {
       if (this.showPage){
         CJCalendar({
-          selectTime : this.bakeTime,
+          selectItem: $selectItem,
 
           recordIcoSize: 6,
 
           todayFontColor: $r('app.color.blue_light'),
 
           onDateChange: (date: CJDateItem) => {
-            this.currDate = date
+            this.selectItem = date
           }
         })
       }
@@ -44,7 +42,8 @@ struct MainIndex {
       Blank()
 
       Button() {
-        Image($r('app.media.ic_public_add_norm_filled')).objectFit(ImageFit.Fill)
+        Image($r('app.media.ic_public_add_norm_filled'))
+          .objectFit(ImageFit.Fill)
           .fillColor('#03A9F4')
           // .objectFit(ImageFit.Fill)
       }
@@ -58,13 +57,12 @@ struct MainIndex {
       })
       .onClick(() => {
         this.showPage = false
-        this.bakeTime = new Date(this.currDate.fullYear, this.currDate.month, this.currDate.date)
         router.pushUrl({
           url: 'pages/DetailIndex',
           params: {
-            year: this.currDate.fullYear,
-            month: this.currDate.month,
-            date: this.currDate.date
+            year: this.selectItem.fullYear,
+            month: this.selectItem.month,
+            date: this.selectItem.date
           }});
       })
     }

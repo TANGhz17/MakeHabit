@@ -4,11 +4,13 @@ import HabitModel from '../model/HabitModel';
 import Habit from '../viewmodel/Habit';
 import MainModel from '../viewmodel/MainViewModel';
 import Record from '../viewmodel/Record';
+import { CJDateItem } from './Calendar/CJCalendar';
 
 @Component
 export struct RecordList {
   @State habits: Habit[] = [];
-  @Link records: Record[];
+
+  @Link CJDate: CJDateItem;
 
   aboutToAppear() {
     this.syncHabits()
@@ -23,7 +25,7 @@ export struct RecordList {
 
   build() {
     List({ space: 12 }) {
-      ForEach(this.records, (record: Record) => {
+      ForEach(this.CJDate.records, (record: Record) => {
         ListItem() {
           RecordListItem({
             habits: $habits,

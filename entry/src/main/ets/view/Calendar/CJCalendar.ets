@@ -203,12 +203,9 @@ struct CalenderCell {
 
 @Component
 export struct CJCalendar {
-  @State selectItem: CJDateItem = undefined
-  @State records: Record[] = [];
+  @Link selectItem: CJDateItem
   private today: Date = new Date() // 当天
-  selectTime: Date;
   showDate: boolean = true // 是否显示日期选择
-  showTime: boolean = false // 是否显示时间选择
   timeFontSize: number | string | Resource = 18 // 时间字体大小
   timeFontColor: ResourceColor // 时间字体大小
   recordIcoSize: number | string | Resource = 6 // 有记录时的标志大小
@@ -334,12 +331,6 @@ export struct CJCalendar {
           if (this.onDateChange) {
             this.onDateChange(item)
           }
-          // 设置Records
-          if (item.records) {
-            this.records = item.records
-          } else {
-            this.records = []
-          }
         }
       })
         .width(`14.28%`)
@@ -386,14 +377,11 @@ export struct CJCalendar {
   aboutToAppear() {
     this.initAttr()
 
-    this.dates = []
-
-    let temp = new CJDateItem()
-    temp.time = this.today.getTime()
-    if (this.selectTime) {
-      temp.time = this.selectTime.getTime()
+    if (!this.selectItem) {
+      let temp = new CJDateItem()
+      temp.time = this.today.getTime()
+      this.selectItem = temp
     }
-    this.selectItem = temp
 
     this.calcDatas()
   }
@@ -447,15 +435,15 @@ export struct CJCalendar {
   // 查询加载的日期在数据库里是否有记录
   private hasRecordWithDates() {
     this.dates.forEach(date => {
-      let tempDate: Date = new Date(date.fullYear, date.month, date.date)
+      let tempDate: Date = new Date(date.time)
       RecordModel.queryByDate(tempDate)
         .then(records => {
           if (records.length > 0) {
             Logger.debug(tempDate.toDateString() + '有 记录');
             date.records = records
 
-            if (tempDate.getTime() == this.today.getTime()){
-              this.records = records
+            if (this.selectItem.time === date.time) {
+              this.selectItem.records = date.records
             }
           }
         })
@@ -629,7 +617,7 @@ export struct CJCalendar {
         .width("100%")
       }
 
-      RecordList({ records: $records })
+      RecordList({ CJDate: $selectItem })
     }
     .width("100%")
 
