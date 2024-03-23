@@ -31,11 +31,7 @@ struct MainIndex {
 
           recordIcoSize: 6,
 
-          todayFontColor: $r('app.color.blue_light'),
-
-          onDateChange: (date: CJDateItem) => {
-            this.selectItem = date
-          }
+          todayFontColor: $r('app.color.blue_light')
         })
       }
 

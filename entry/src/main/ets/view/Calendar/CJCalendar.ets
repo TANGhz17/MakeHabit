@@ -443,6 +443,7 @@ export struct CJCalendar {
             date.records = records
 
             if (this.selectItem.time === date.time) {
+              Logger.debug('this.selectItem.time === date.time')
               this.selectItem.records = date.records
             }
           }
