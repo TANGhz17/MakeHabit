@@ -6,9 +6,9 @@
   "author": "",
   "license": "",
   "dependencies": {
-//    "cjcalendar": "1.1.1",
-    "@yunkss/eftool": "1.0.2",    //https://gitee.com/yunkss/ef-tool#eftool
-    "@isrc/easyui": "1.0.1"       //https://gitee.com/zw0601/ohos_easyui#easyui
+//    "@ohos/pulltorefresh": "2.0.5",
+//    "@yunkss/eftool": "1.0.2",    //https://gitee.com/yunkss/ef-tool#eftool
+//    "@isrc/easyui": "1.0.1"       //https://gitee.com/zw0601/ohos_easyui#easyui
   }
 }
 

@@ -441,11 +441,6 @@ export struct CJCalendar {
           if (records.length > 0) {
             Logger.debug(tempDate.toDateString() + '有 记录');
             date.records = records
-
-            if (this.selectItem.time === date.time) {
-              Logger.debug('this.selectItem.time === date.time')
-              this.selectItem.records = date.records
-            }
           }
         })
     })
@@ -618,7 +613,7 @@ export struct CJCalendar {
         .width("100%")
       }
 
-      RecordList({ CJDate: $selectItem })
+      RecordList({ CJDates: $dates, CJDate: $selectItem })
     }
     .width("100%")
 

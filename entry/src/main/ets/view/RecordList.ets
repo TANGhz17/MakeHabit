@@ -11,6 +11,7 @@ import { CJDateItem } from './Calendar/CJCalendar';
 export struct RecordList {
   @State habits: Habit[] = [];
 
+  @Link CJDates: Array<CJDateItem>;
   @Link CJDate: CJDateItem;
 
   aboutToAppear() {
@@ -24,7 +25,7 @@ export struct RecordList {
       })
   }
 
-  @Builder itemEnd(record: Record, index: number) {
+  @Builder itemEnd(record: Record, listIndex: number, index: number) {
     // 侧滑后尾端出现的组件
     Button({ type: ButtonType.Circle }) {
       Image($r('app.media.ic_public_delete_filled'))
@@ -39,22 +40,26 @@ export struct RecordList {
     .backgroundColor($r('app.color.red_light'))
     .onClick(() => {
       RecordModel.deleteById(record.id)
-      this.CJDate.records.splice(index,1)
+      this.CJDates[listIndex].records.splice(index,1)
     })
   }
 
   build() {
     List({ space: 12 }) {
-      ForEach(this.CJDate.records, (record: Record, index : number) => {
-        ListItem() {
-          RecordListItem({
-            habits: $habits,
-            record: record
-          })
-        }
-        .swipeAction({ end: this.itemEnd.bind(this, record, index) }) // 设置侧滑属性
+      ForEach(this.CJDates, (date: CJDateItem, listIndex: number) =>{
+        if (date.time === this.CJDate.time){
+          ForEach(date.records, (record: Record, index: number) => {
+            ListItem() {
+              RecordListItem({
+                habits: $habits,
+                record: record
+              })
+            }
+            .swipeAction({ end: this.itemEnd.bind(this, record, listIndex, index) }) // 设置侧滑属性
 
-      }, (record: Record) => JSON.stringify(record))
+          }, (record: Record) => JSON.stringify(record))
+        }
+      })
     }
     .padding({
       left: DimensionUtil.getVp($r('app.float.record_list_content_distance')),

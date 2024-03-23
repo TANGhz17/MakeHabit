@@ -10,7 +10,6 @@ import MainModel from '../viewmodel/MainViewModel';
 @Component
 struct MainIndex {
   private mainModel: MainModel = MainModel.instant;
-  private showPage: boolean = true;
 
   @State selectItem: CJDateItem = undefined;
 
@@ -19,13 +18,8 @@ struct MainIndex {
     this.mainModel.addRecordsToDB()
   }
 
-  onPageShow(){
-    this.showPage = true
-  }
-
   build() {
     Column({ space: 12 }) {
-      if (this.showPage){
         CJCalendar({
           selectItem: $selectItem,
 
@@ -33,9 +27,6 @@ struct MainIndex {
 
           todayFontColor: $r('app.color.blue_light')
         })
-      }
-
-      Blank()
 
       Button() {
         Image($r('app.media.ic_public_add_norm_filled'))
@@ -52,7 +43,6 @@ struct MainIndex {
         top: DimensionUtil.getVp($r('app.float.new_record_button_margin_vertical'))
       })
       .onClick(() => {
-        this.showPage = false
         router.pushUrl({
           url: 'pages/DetailIndex',
           params: {
