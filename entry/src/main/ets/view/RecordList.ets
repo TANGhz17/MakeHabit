@@ -5,7 +5,7 @@ import RecordModel from '../model/RecordModel';
 import Habit from '../viewmodel/Habit';
 import MainModel from '../viewmodel/MainViewModel';
 import Record from '../viewmodel/Record';
-import { CJDateItem } from './Calendar/CJCalendar';
+import { CJDateItem } from './CJCalendar';
 
 @Component
 export struct RecordList {
@@ -40,7 +40,7 @@ export struct RecordList {
     .backgroundColor($r('app.color.red_light'))
     .onClick(() => {
       RecordModel.deleteById(record.id)
-      this.CJDates[listIndex].records.splice(index,1)
+      // this.CJDates[listIndex].records.splice(index,1)
     })
   }
 

@@ -1,7 +1,7 @@
 import Logger from '../common/utils/Logger'
 import habitModel from '../model/HabitModel';
 import RecordModel from '../model/RecordModel';
-import { CJDateItem } from '../view/Calendar/CJCalendar';
+import { CJDateItem } from '../view/CJCalendar';
 import Habit from './Habit'
 import Record from './Record'
 

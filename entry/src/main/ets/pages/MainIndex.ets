@@ -1,5 +1,5 @@
 import router from '@ohos.router';
-import { CJCalendar, CJDateItem } from '../view/Calendar/CJCalendar'
+import { CJCalendar, CJDateItem } from '../view/CJCalendar'
 import { CommonConstants } from '../common/constants/CommonConstants'
 import DimensionUtil from '../common/utils/DimensionUtil';
 import Logger from '../common/utils/Logger'

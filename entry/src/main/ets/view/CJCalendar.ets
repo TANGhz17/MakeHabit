@@ -1,7 +1,7 @@
-import Logger from '../../common/utils/Logger'
-import RecordModel from '../../model/RecordModel';
-import Record from '../../viewmodel/Record';
-import { RecordList } from '../RecordList';
+import Logger from '../common/utils/Logger'
+import RecordModel from '../model/RecordModel';
+import Record from '../viewmodel/Record';
+import { RecordList } from './RecordList';
 
 // CJCalendar
 
