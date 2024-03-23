@@ -5,11 +5,15 @@ import DimensionUtil from '../common/utils/DimensionUtil';
 import Logger from '../common/utils/Logger'
 import MainModel from '../viewmodel/MainViewModel';
 
-@Entry
+let storage = new LocalStorage({ 'isReload': true });
+
+@Entry(storage)
 @Preview
 @Component
 struct MainIndex {
   private mainModel: MainModel = MainModel.instant;
+
+  @LocalStorageLink('isReload') isReload: boolean = false;
 
   @State selectItem: CJDateItem = undefined;
 
@@ -43,6 +47,7 @@ struct MainIndex {
         top: DimensionUtil.getVp($r('app.float.new_record_button_margin_vertical'))
       })
       .onClick(() => {
+        // this.isReload = !this.isReload
         router.pushUrl({
           url: 'pages/DetailIndex',
           params: {

@@ -203,6 +203,8 @@ struct CalenderCell {
 
 @Component
 export struct CJCalendar {
+  @LocalStorageLink('isReload') isReload: boolean = false;
+
   @Link selectItem: CJDateItem
   private today: Date = new Date() // 当天
   showDate: boolean = true // 是否显示日期选择
@@ -514,7 +516,7 @@ export struct CJCalendar {
 
   build() {
     Column() {
-      if (this.showDate) {
+      if (this.isReload) {
         // topTitleLayout
         Row() {
           // titleLeftLayout

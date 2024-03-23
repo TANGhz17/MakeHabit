@@ -11,6 +11,8 @@ import Record from '../viewmodel/Record';
 @Entry
 @Component
 struct DetailIndex {
+  @LocalStorageLink('isReload') isReload: boolean = false;
+
   @State habits: Habit[] = [];
   @State habitId: number = NaN;
 
@@ -68,9 +70,6 @@ struct DetailIndex {
         .height(DimensionUtil.getVp($r('app.float.title_button_size')))
         .onClick(() => {
           // sql 插入record数据
-          // Logger.debug('设置的时间是：', this.myYear + '年' + ( this.myMonth + 1 ) + '月' + this.myDate + '日')
-          // Logger.debug('设置的时间是：', this.myHour + ':' + this.myMinute + ':' + this.mySecond)
-          // Logger.debug('设置的时间是：', new Date(this.myYear,this.myMonth,this.myDate,this.myHour,this.myMinute,this.mySecond).getTime().toString())
           this.addRecordToDB(this.getRecord(this.habitId))
 
           router.back();
