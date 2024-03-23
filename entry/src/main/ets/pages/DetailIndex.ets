@@ -1,8 +1,6 @@
 import router from '@ohos.router';
 import { CommonConstants } from '../common/constants/CommonConstants';
-import { DetailConstant } from '../common/constants/DetailConstant';
 import DimensionUtil from '../common/utils/DimensionUtil';
-import Logger from '../common/utils/Logger';
 import HabitModel from '../model/HabitModel';
 import RecordModel from '../model/RecordModel';
 import BackContainer from '../view/BackContainer';

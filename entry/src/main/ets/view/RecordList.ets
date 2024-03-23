@@ -1,6 +1,7 @@
 import { CommonConstants } from '../common/constants/CommonConstants';
 import DimensionUtil from '../common/utils/DimensionUtil';
 import HabitModel from '../model/HabitModel';
+import RecordModel from '../model/RecordModel';
 import Habit from '../viewmodel/Habit';
 import MainModel from '../viewmodel/MainViewModel';
 import Record from '../viewmodel/Record';
@@ -23,15 +24,35 @@ export struct RecordList {
       })
   }
 
+  @Builder itemEnd(record: Record, index: number) {
+    // 侧滑后尾端出现的组件
+    Button({ type: ButtonType.Circle }) {
+      Image($r('app.media.ic_public_delete_filled'))
+        .width(30)
+        .height(30)
+    }
+    .width(50)
+    .height(50)
+    .margin({
+      left: 10
+    })
+    .backgroundColor($r('app.color.red_light'))
+    .onClick(() => {
+      RecordModel.deleteById(record.id)
+      this.CJDate.records.splice(index,1)
+    })
+  }
+
   build() {
     List({ space: 12 }) {
-      ForEach(this.CJDate.records, (record: Record) => {
+      ForEach(this.CJDate.records, (record: Record, index : number) => {
         ListItem() {
           RecordListItem({
             habits: $habits,
             record: record
           })
         }
+        .swipeAction({ end: this.itemEnd.bind(this, record, index) }) // 设置侧滑属性
 
       }, (record: Record) => JSON.stringify(record))
     }
