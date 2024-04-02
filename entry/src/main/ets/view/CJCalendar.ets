@@ -203,7 +203,7 @@ struct CalenderCell {
 
 @Component
 export struct CJCalendar {
-  @LocalStorageLink('isReload') isReload: boolean = false;
+  // @LocalStorageLink('isReload') isReload: boolean = false;
 
   @Link selectItem: CJDateItem
   private today: Date = new Date() // 当天
@@ -516,7 +516,7 @@ export struct CJCalendar {
 
   build() {
     Column() {
-      if (this.isReload) {
+      // if (this.isReload) {
         // topTitleLayout
         Row() {
           // titleLeftLayout
@@ -613,7 +613,7 @@ export struct CJCalendar {
           this.createCell()
         }
         .width("100%")
-      }
+      // }
 
       RecordList({ CJDates: $dates, CJDate: $selectItem })
     }

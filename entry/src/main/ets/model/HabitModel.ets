@@ -47,7 +47,14 @@ class HabitModel {
     return DbUtil.delete(predicates)
   }
 
-  async queryByHabitName(ids: number[]): Promise<Habit[]>{
+  async queryById(id: number): Promise<Habit[]>{
+    let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
+    predicates.equalTo(COLUMNS[0].columnName, id)
+
+    return DbUtil.queryForList<Habit>(predicates, COLUMNS)
+  }
+
+  async queryByIds(ids: number[]): Promise<Habit[]>{
     let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
     for (let i = 0; i < ids.length; i++) {
       predicates.equalTo(COLUMNS[0].columnName, ids[i])

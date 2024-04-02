@@ -5,15 +5,14 @@ import DimensionUtil from '../common/utils/DimensionUtil';
 import Logger from '../common/utils/Logger'
 import MainModel from '../viewmodel/MainViewModel';
 
-let storage = new LocalStorage({ 'isReload': true });
+let storage = new LocalStorage({ 'IsReload': true });
 
 @Entry(storage)
-@Preview
 @Component
 struct MainIndex {
   private mainModel: MainModel = MainModel.instant;
 
-  @LocalStorageLink('isReload') isReload: boolean = false;
+  @LocalStorageLink('IsReload') isReload: boolean = false;
 
   @State selectItem: CJDateItem = undefined;
 

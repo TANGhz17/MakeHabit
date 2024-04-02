@@ -43,6 +43,18 @@ class RecordModel {
     return DbUtil.delete(predicates)
   }
 
+  async queryByRecord(record: Record): Promise<Record[]>{
+    let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
+    if (record.id !== null) {
+      predicates.equalTo(COLUMNS[0].columnName, record.id)
+    }
+    predicates
+      .equalTo(COLUMNS[1].columnName, record.createTime)
+      .equalTo(COLUMNS[2].columnName, record.habitId)
+
+    return DbUtil.queryForList<Record>(predicates, COLUMNS)
+  }
+
   async queryByDate(date: Date): Promise<Record[]>{
     date.setHours(0,0,0,0)
     let startTime = date.getTime()

@@ -28,7 +28,12 @@ export default class MainViewModel {
       }
     ]
     habits.forEach(habit => {
-      habitModel.insert(habit)
+      habitModel.queryById(habit.id)
+        .then(habits => {
+          if (habits.length === 0) {
+            habitModel.insert(habit)
+          }
+        })
     })
   }
 
@@ -51,7 +56,12 @@ export default class MainViewModel {
       }
     ]
     records.forEach(record => {
-      RecordModel.insert(record)
+      RecordModel.queryByRecord(record)
+        .then(records => {
+          if (records.length === 0) {
+            RecordModel.insert(record)
+          }
+        })
     })
   }
   

@@ -6,7 +6,6 @@ import Logger from '../common/utils/Logger'
 import DbUtil from '../common/utils/DbUtil';
 import HabitModel from '../model/HabitModel';
 import RecordModel from '../model/RecordModel';
-import MainViewModel from '../viewmodel/MainViewModel';
 
 export default class EntryAbility extends UIAbility {
 
