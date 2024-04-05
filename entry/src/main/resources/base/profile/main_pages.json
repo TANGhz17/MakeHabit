@@ -1,6 +1,7 @@
 {
   "src": [
     "pages/MainIndex",
-    "pages/DetailIndex"
+    "pages/DetailIndex",
+    "pages/ChartIndex"
   ]
 }

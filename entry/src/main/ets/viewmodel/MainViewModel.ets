@@ -85,9 +85,4 @@ export default class MainViewModel {
     else if (min <= 24 * 60 )
       return '晚上'
   }
-
-  // 设置当前日期的记录
-  setCurrentRecords(date: CJDateItem) {
-
-  }
 }
