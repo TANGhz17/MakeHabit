@@ -39,6 +39,14 @@
     {
       "name": "update_record",
       "value": "UpdateRecord"
+    },
+    {
+      "name": "main_label",
+      "value": "MakeHabit"
+    },
+    {
+      "name": "chart_label",
+      "value": "Chart"
     }
   ]
 }

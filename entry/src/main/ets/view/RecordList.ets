@@ -25,6 +25,15 @@ export struct RecordList {
       })
   }
 
+  getHabitIndex(id : number): number{
+    this.habits.forEach(habit => {
+      if (habit.id == id) {
+        return habit
+      }
+    })
+    return 0
+  }
+
   @Builder itemEnd(record: Record, listIndex: number, index: number) {
     // 侧滑后尾端出现的组件
     Button({ type: ButtonType.Circle }) {
@@ -96,14 +105,15 @@ export struct RecordListItem {
     Row() {
       Column() {
         Row() {
-          Text(this.mainModel.getNoonContent(this.date))
-            .CommonTextAttr(DimensionUtil.getVp($r('app.float.records_item_noon_font_size')),
-              FontWeight.Regular)
-          Text(this.habit.name)
-            .CommonTextAttr(DimensionUtil.getVp($r('app.float.records_item_time_font_size')),
-              FontWeight.Regular,
-              { left: DimensionUtil.getVp($r('app.float.records_item_time_margin_left')) })
-
+          if (this.habit != null){
+            Text(this.mainModel.getNoonContent(this.date))
+              .CommonTextAttr(DimensionUtil.getVp($r('app.float.records_item_noon_font_size')),
+                FontWeight.Regular)
+            Text(this.habit.name)
+              .CommonTextAttr(DimensionUtil.getVp($r('app.float.records_item_time_font_size')),
+                FontWeight.Regular,
+                { left: DimensionUtil.getVp($r('app.float.records_item_time_margin_left')) })
+          }
         }
       }
       .width(CommonConstants.FULL_LENGTH)

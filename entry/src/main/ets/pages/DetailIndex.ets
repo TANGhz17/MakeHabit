@@ -16,6 +16,8 @@ struct DetailIndex {
   @State habits: Habit[] = [];
   @State habitId: number = NaN;
 
+  private selectedTime: Date = new Date()
+
   private myYear: number = 2000;
   private myMonth: number = 0;
   private myDate: number = 0;
@@ -26,6 +28,7 @@ struct DetailIndex {
 
   aboutToAppear(){
     this.syncHabits()
+    this.selectedTime.setSeconds(0,0)
   }
 
   onPageShow() {
@@ -58,7 +61,6 @@ struct DetailIndex {
   build() {
     Column() {
       BackContainer({
-        // header: this.isNow ? $r('app.string.new_record') : $r('app.string.update_record'),
         header: $r('app.string.new_record'),
         backImgRes: $r('app.media.ic_public_cancel'),
       }) {
@@ -70,19 +72,40 @@ struct DetailIndex {
         .height(DimensionUtil.getVp($r('app.float.title_button_size')))
         .onClick(() => {
           // sql 插入record数据
-          this.addRecordToDB(this.getRecord(this.habitId))
+          this.addRecordToDB(new Record(NaN, this.selectedTime.getTime(), this.habitId))
 
           router.back();
         })
       }
 
       // 设置时间(不需要日期)
-      DatePickArea({ myHour: $myHour, myMinute: $myMinute, mySecond: $mySecond })
+      // DatePickArea({ myHour: $myHour, myMinute: $myMinute, mySecond: $mySecond })
+
+      TimePicker({
+        selected: this.selectedTime,
+      })
+        .useMilitaryTime(true)
+        .onChange((value: TimePickerResult) => {
+          this.selectedTime.setHours(value.hour, value.minute)
+          console.info('select current date is: ' + JSON.stringify(value))
+        })
+        .width('100%')
 
       // 设置habitId
-
-      // this.setRecord(habitId)
-
+      Select([{ value: 'aaa'},
+        { value: 'bbb'},
+        { value: 'ccc'},
+        { value: 'ddd'},
+        { value: '新建'}])
+        .selected(2)
+        .value('TTTTT')
+        .font({ size: 16, weight: 500 })
+        .fontColor('#182431')
+        .selectedOptionFont({ size: 16, weight: 400 })
+        .optionFont({ size: 16, weight: 400 })
+        .onSelect((index: number) => {
+          console.info('Select:' + index)
+        })
     }
     .backgroundColor($r('app.color.grey_light'))
     .width(CommonConstants.FULL_LENGTH)

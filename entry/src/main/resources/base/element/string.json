@@ -11,6 +11,9 @@
     {
       "name": "EntryAbility_label",
       "value": "Label"
+    },{
+      "name": "main_label",
+      "value": "MakeHabit"
     },
     {
       "name": "new_record",
@@ -19,6 +22,10 @@
     {
       "name": "update_record",
       "value": "更新记录"
+    },
+    {
+      "name": "chart_label",
+      "value": "Chart"
     },
     {
       "name": "confirm",

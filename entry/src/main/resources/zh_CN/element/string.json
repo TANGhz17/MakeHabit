@@ -39,6 +39,14 @@
     {
       "name": "update_record",
       "value": "更新记录"
+    },
+    {
+      "name": "main_label",
+      "value": "主页面"
+    },
+    {
+      "name": "chart_label",
+      "value": "统计"
     }
   ]
 }

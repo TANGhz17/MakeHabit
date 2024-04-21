@@ -40,19 +40,19 @@ export default class MainViewModel {
   public addRecordsToDB() {
     let records: Record[] = [
       {
-        id: null, habitId: 1, createTime: new Date(2024, 2 - 1, 29).getTime()
+        id: null, habitId: 1, createTime: new Date(2024, 3 - 1, 31).getTime()
       },
       {
-        id: null, habitId: 0, createTime: new Date(2024, 3 - 1, 4).getTime()
+        id: null, habitId: 0, createTime: new Date(2024, 4 - 1, 14).getTime()
       },
       {
-        id: null, habitId: 1, createTime: new Date(2024, 3 - 1, 29, 10).getTime()
+        id: null, habitId: 1, createTime: new Date(2024, 4 - 1, 29, 10).getTime()
       },
       {
-        id: null, habitId: 2, createTime: new Date(2024, 3 - 1, 29).getTime()
+        id: null, habitId: 2, createTime: new Date(2024, 4 - 1, 29).getTime()
       },
       {
-        id: null, habitId: 2, createTime: new Date(2024, 3 - 1, 29, 23, 59, 59).getTime()
+        id: null, habitId: 2, createTime: new Date(2024, 4 - 1, 29, 23, 59, 59).getTime()
       }
     ]
     records.forEach(record => {
