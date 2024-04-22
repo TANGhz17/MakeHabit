@@ -6,13 +6,10 @@ import Logger from '../common/utils/Logger'
 import MainModel from '../viewmodel/MainViewModel';
 import BackContainer from '../view/BackContainer';
 
-let storage = new LocalStorage({ 'IsReload': true });
-
-@Entry(storage)
+@Entry
 @Component
 struct MainIndex {
   private mainModel: MainModel = MainModel.instant;
-  @LocalStorageLink('IsReload') isReload: boolean = false;
   @State selectItem: CJDateItem = undefined;
 
   aboutToAppear() {
@@ -27,12 +24,26 @@ struct MainIndex {
         header: $r('app.string.main_label')
       }) {
         Button() {
-          Image($r('app.media.ic_public_chart')).objectFit(ImageFit.Fill)
+          Image($r('app.media.ic_public_settings'))
         }
         .backgroundColor($r('app.color.trans_parent'))
         .width(DimensionUtil.getVp($r('app.float.title_button_size')))
         .height(DimensionUtil.getVp($r('app.float.title_button_size')))
         .onClick(() => {
+          Logger.info('router -> SettingIndex');
+          router.pushUrl({
+            url: 'pages/SettingIndex'
+          })
+        })
+
+        Button() {
+          Image($r('app.media.ic_public_chart'))
+        }
+        .backgroundColor($r('app.color.trans_parent'))
+        .width(DimensionUtil.getVp($r('app.float.title_button_size')))
+        .height(DimensionUtil.getVp($r('app.float.title_button_size')))
+        .onClick(() => {
+          Logger.info('router -> ChartIndex');
           router.pushUrl({
             url: 'pages/ChartIndex'
           })
@@ -51,7 +62,6 @@ struct MainIndex {
         Image($r('app.media.ic_public_add_norm_filled'))
           .objectFit(ImageFit.Fill)
           .fillColor('#03A9F4')
-        // .objectFit(ImageFit.Fill)
       }
       .backgroundColor($r('app.color.trans_parent'))
       .width(DimensionUtil.getVp($r('app.float.new_record_button_size')))
@@ -62,7 +72,7 @@ struct MainIndex {
         top: DimensionUtil.getVp($r('app.float.new_record_button_margin_vertical'))
       })
       .onClick(() => {
-        // this.isReload = !this.isReload
+        Logger.info('router -> DetailIndex');
         router.pushUrl({
           url: 'pages/DetailIndex',
           params: {

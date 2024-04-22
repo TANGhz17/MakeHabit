@@ -25,16 +25,7 @@ export struct RecordList {
       })
   }
 
-  getHabitIndex(id : number): number{
-    this.habits.forEach(habit => {
-      if (habit.id == id) {
-        return habit
-      }
-    })
-    return 0
-  }
-
-  @Builder itemEnd(record: Record, listIndex: number, index: number) {
+  @Builder itemEnd(record: Record, index: number) {
     // 侧滑后尾端出现的组件
     Button({ type: ButtonType.Circle }) {
       Image($r('app.media.ic_public_delete_filled'))
@@ -48,14 +39,14 @@ export struct RecordList {
     })
     .backgroundColor($r('app.color.red_light'))
     .onClick(() => {
-      RecordModel.deleteById(record.id)
+      RecordModel.deleteByRecordId(record.id)
       // this.CJDates[listIndex].records.splice(index,1)
     })
   }
 
   build() {
     List({ space: 12 }) {
-      ForEach(this.CJDates, (date: CJDateItem, listIndex: number) =>{
+      ForEach(this.CJDates, (date: CJDateItem) =>{
         if (date.time === this.CJDate.time){
           ForEach(date.records, (record: Record, index: number) => {
             ListItem() {
@@ -64,8 +55,7 @@ export struct RecordList {
                 record: record
               })
             }
-            .swipeAction({ end: this.itemEnd.bind(this, record, listIndex, index) }) // 设置侧滑属性
-
+            .swipeAction({ end: this.itemEnd.bind(this, record, index) }) // 设置侧滑属性
           }, (record: Record) => JSON.stringify(record))
         }
       })
@@ -83,7 +73,7 @@ export struct RecordList {
 @Component
 export struct RecordListItem {
   @Link habits: Habit[];
-  @State record: Record = null;
+  private record: Record;
   private mainModel: MainModel = MainModel.instant;
   private date: Date = new Date();
   private habit: Habit = null;

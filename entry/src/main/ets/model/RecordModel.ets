@@ -37,9 +37,15 @@ class RecordModel {
     return DbUtil.insert(TABLE_NAME, record, COLUMNS)
   }
 
-  deleteById(id: number){
+  deleteByRecordId(id: number){
     let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
     predicates.equalTo(COLUMNS[0].columnName,id)
+    return DbUtil.delete(predicates)
+  }
+
+  deleteByHabitId(id: number){
+    let predicates = new relationalStore.RdbPredicates(TABLE_NAME)
+    predicates.equalTo(COLUMNS[2].columnName,id)
     return DbUtil.delete(predicates)
   }
 

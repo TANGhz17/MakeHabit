@@ -1,53 +1,40 @@
 import router from '@ohos.router';
 import { CommonConstants } from '../common/constants/CommonConstants';
 import DimensionUtil from '../common/utils/DimensionUtil';
+import Logger from '../common/utils/Logger';
 import HabitModel from '../model/HabitModel';
 import RecordModel from '../model/RecordModel';
 import BackContainer from '../view/BackContainer';
-import { DatePickArea } from '../view/DatePickArea';
 import Habit from '../viewmodel/Habit';
 import Record from '../viewmodel/Record';
 
 @Entry
 @Component
 struct DetailIndex {
-  @LocalStorageLink('isReload') isReload: boolean = false;
-
   @State habits: Habit[] = [];
+  @State selectValues: SelectOption[] = [{ value: '锻炼'}, { value: '学习'}, { value: '练字'}]
+  @State selectedValue: string = '锻炼'
   @State habitId: number = NaN;
 
-  private selectedTime: Date = new Date()
+  @State year : number = 2024;
+  @State month : number = 4;
+  @State date : number = 22;
 
-  private myYear: number = 2000;
-  private myMonth: number = 0;
-  private myDate: number = 0;
-
-  @State myHour: number = 0;
-  @State myMinute: number = 0;
-  @State mySecond: number = 0;
+  private selectedTime: Date = new Date();
 
   aboutToAppear(){
     this.syncHabits()
-    this.selectedTime.setSeconds(0,0)
   }
 
   onPageShow() {
     const params = router.getParams() // 获取传递过来的参数对象
-    this.myYear = params['year']
-    this.myMonth = params['month']
-    this.myDate = params['date']
-  }
+    this.selectedTime.setFullYear(params['year'],params['month'],params['date'])
+    this.selectedTime.setSeconds(0,0)
+    this.year = this.selectedTime.getFullYear()
+    this.month = this.selectedTime.getMonth() + 1
+    this.date = this.selectedTime.getDate()
 
-  getDate() : Date {
-    return new Date(this.myYear,this.myMonth,this.myDate,this.myHour,this.myMinute,this.mySecond)
-  }
-
-  addRecordToDB(record: Record){
-    RecordModel.insert(record)
-  }
-
-  getRecord(habitId: number): Record {
-    return new Record(NaN, this.getDate().getTime(), habitId)
+    Logger.debug(this.selectedTime.toString())
   }
 
   syncHabits() {
@@ -55,6 +42,13 @@ struct DetailIndex {
       .then(habits => {
         this.habits = habits
         this.habitId = habits[0].id
+
+        let selectValues : SelectOption[] = []
+        habits.forEach((habit : Habit)=>{
+          selectValues.push({value: habit.name})
+        })
+        this.selectValues = selectValues
+        this.selectedValue = this.selectValues[0].value as string
       })
   }
 
@@ -72,39 +66,40 @@ struct DetailIndex {
         .height(DimensionUtil.getVp($r('app.float.title_button_size')))
         .onClick(() => {
           // sql 插入record数据
-          this.addRecordToDB(new Record(NaN, this.selectedTime.getTime(), this.habitId))
+          RecordModel.insert(new Record(NaN, this.selectedTime.getTime(), this.habitId))
 
           router.back();
         })
       }
 
-      // 设置时间(不需要日期)
-      // DatePickArea({ myHour: $myHour, myMinute: $myMinute, mySecond: $mySecond })
+      Text(this.year + '年' +
+           this.month + '月' +
+           this.date + '日')
+        .fontColor($r('app.color.grey_divider'))
+        .fontWeight(FontWeight.Medium)
 
+      // 设置时间(不需要日期)
       TimePicker({
         selected: this.selectedTime,
       })
-        .useMilitaryTime(true)
+        .useMilitaryTime(false)
         .onChange((value: TimePickerResult) => {
           this.selectedTime.setHours(value.hour, value.minute)
           console.info('select current date is: ' + JSON.stringify(value))
         })
-        .width('100%')
+        .width('80%')
 
       // 设置habitId
-      Select([{ value: 'aaa'},
-        { value: 'bbb'},
-        { value: 'ccc'},
-        { value: 'ddd'},
-        { value: '新建'}])
-        .selected(2)
-        .value('TTTTT')
+      Select(this.selectValues)
+        .selected(0)
+        .value(this.selectedValue)
         .font({ size: 16, weight: 500 })
         .fontColor('#182431')
         .selectedOptionFont({ size: 16, weight: 400 })
         .optionFont({ size: 16, weight: 400 })
         .onSelect((index: number) => {
           console.info('Select:' + index)
+          this.habitId = this.habits[index].id
         })
     }
     .backgroundColor($r('app.color.grey_light'))

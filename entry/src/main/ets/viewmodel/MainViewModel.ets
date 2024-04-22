@@ -18,13 +18,13 @@ export default class MainViewModel {
   public addHabitsToDB() {
     let habits: Habit[] = [
       {
-        id: 0, name: '锻炼', msg: '', intervalTime: NaN
+        id: 0, name: '锻炼', msg: 'Exercise', intervalTime: NaN
       },
       {
-        id: 1, name: '学习', msg: '', intervalTime: NaN
+        id: 1, name: '学习', msg: 'Learn', intervalTime: NaN
       },
       {
-        id: 2, name: '练字', msg: '', intervalTime: NaN
+        id: 2, name: '练字', msg: 'Practice calligraphy', intervalTime: NaN
       }
     ]
     habits.forEach(habit => {
