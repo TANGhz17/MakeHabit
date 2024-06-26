@@ -1,8 +1,5 @@
 {
   "src": [
-    "pages/MainIndex",
-    "pages/DetailIndex",
-    "pages/ChartIndex",
-    "pages/SettingIndex"
+    "pages/Index"
   ]
 }

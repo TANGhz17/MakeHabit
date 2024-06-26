@@ -2,51 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module_desc"
+      "value": "模块描述"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "Desc"
+      "value": "description"
     },
     {
       "name": "EntryAbility_label",
-      "value": "Label"
-    },
-    {
-      "name": "confirm",
-      "value": "确定"
-    },
-    {
-      "name": "cancel",
-      "value": "取消"
-    },
-    {
-      "name": "reason",
-      "value": "通知"
-    },
-    {
-      "name": "delete",
-      "value": "删除"
-    },
-    {
-      "name": "repeat_name",
-      "value": "重复"
-    },
-    {
-      "name": "new_record",
-      "value": "新记录"
-    },
-    {
-      "name": "update_record",
-      "value": "更新记录"
-    },
-    {
-      "name": "main_label",
-      "value": "主页面"
-    },
-    {
-      "name": "chart_label",
-      "value": "统计"
+      "value": "label"
     }
   ]
 }

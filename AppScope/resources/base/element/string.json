@@ -3,10 +3,6 @@
     {
       "name": "app_name",
       "value": "MakeHabit"
-    },
-    {
-      "name": "app_desc",
-      "value": "Make your Habit"
     }
   ]
 }

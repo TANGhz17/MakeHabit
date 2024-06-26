@@ -1,11 +1,10 @@
 {
   "app": {
-    "bundleName": "cn.tanghz17.make_habit",
-    "vendor": "TANGhz17.cn",
-    "versionCode": 1,
-    "versionName": "0.0.1",
+    "bundleName": "cn.tanghz17.makehabit",
+    "vendor": "example",
+    "versionCode": 1000000,
+    "versionName": "1.0.0",
     "icon": "$media:app_icon",
-    "label": "$string:app_name",
-    "description": "$string:app_desc"
+    "label": "$string:app_name"
   }
 }

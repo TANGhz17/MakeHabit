@@ -1,61 +1,41 @@
-import display from '@ohos.display';
-import UIAbility from '@ohos.app.ability.UIAbility';
-import window from '@ohos.window';
-import { GlobalContext } from '../common/utils/GlobalContext';
-import Logger from '../common/utils/Logger'
-import DbUtil from '../common/utils/DbUtil';
-import HabitModel from '../model/HabitModel';
-import RecordModel from '../model/RecordModel';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { window } from '@kit.ArkUI';
 
 export default class EntryAbility extends UIAbility {
-
-  async onCreate(want, launchParam) {
-    // 1.加载用户首选项
-    // 2.初始化日期
-    // AppStorage.SetOrCreate()
-    // 3.初始化RDB工具
-    await DbUtil.initDB(this.context);
-    // 3.1.创建Habit表
-    DbUtil.createTable(HabitModel.getCreateTableSql())
-    // 3.2.创建Record表
-    DbUtil.createTable(RecordModel.getCreateTableSql())
-
-    Logger.info('Ability onCreate');
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
   }
 
-  onDestroy() {
-    Logger.info('Ability onDestroy');
+  onDestroy(): void {
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
   }
 
-  // async
-  onWindowStageCreate(windowStage: window.WindowStage) {
+  onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
-    Logger.info('Ability onWindowStageCreate');
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
-    let globalDisplay: display.Display = display.getDefaultDisplaySync();
-    GlobalContext.getContext().setObject('globalDisplay', globalDisplay);
-
-    windowStage.loadContent('pages/MainIndex', (err, data) => {
+    windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
-        Logger.error('Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
-      Logger.info('testTag', 'Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
+      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
     });
   }
 
-  onWindowStageDestroy() {
+  onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
-    Logger.info('Ability onWindowStageDestroy');
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
   }
 
-  onForeground() {
+  onForeground(): void {
     // Ability has brought to foreground
-    Logger.info('Ability onForeground');
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
   }
 
-  onBackground() {
+  onBackground(): void {
     // Ability has back to background
-    Logger.info('Ability onBackground');
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
   }
 }

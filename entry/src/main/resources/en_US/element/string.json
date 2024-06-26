@@ -2,51 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module_desc"
+      "value": "module description"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "Desc"
+      "value": "description"
     },
     {
       "name": "EntryAbility_label",
-      "value": "Label"
-    },
-    {
-      "name": "reason",
-      "value": "Reason"
-    },
-    {
-      "name": "delete",
-      "value": "Delete"
-    },
-    {
-      "name": "repeat_name",
-      "value": "RepeatName"
-    },
-    {
-      "name": "cancel",
-      "value": "Cancel"
-    },
-    {
-      "name": "confirm",
-      "value": "Confirm"
-    },
-    {
-      "name": "new_record",
-      "value": "NewRecord"
-    },
-    {
-      "name": "update_record",
-      "value": "UpdateRecord"
-    },
-    {
-      "name": "main_label",
-      "value": "MakeHabit"
-    },
-    {
-      "name": "chart_label",
-      "value": "Chart"
+      "value": "label"
     }
   ]
 }

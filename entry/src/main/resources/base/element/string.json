@@ -2,50 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module_desc"
+      "value": "module description"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "Desc"
+      "value": "description"
     },
     {
       "name": "EntryAbility_label",
-      "value": "Label"
-    },{
-      "name": "main_label",
-      "value": "MakeHabit"
-    },
-    {
-      "name": "new_record",
-      "value": "新记录"
-    },
-    {
-      "name": "update_record",
-      "value": "更新记录"
-    },
-    {
-      "name": "chart_label",
-      "value": "Chart"
-    },
-    {
-      "name": "confirm",
-      "value": "确定"
-    },
-    {
-      "name": "cancel",
-      "value": "取消"
-    },
-    {
-      "name": "repeat_name",
-      "value": "重复"
-    },
-    {
-      "name": "delete",
-      "value": "删除"
-    },
-    {
-      "name": "reason",
-      "value": "通知"
+      "value": "label"
     }
   ]
 }
