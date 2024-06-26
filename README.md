@@ -5,5 +5,6 @@ HarmonyOS APP TEST
 Make you Habit
 
 #### 软件架构
-OpenHarmony
+OpenHarmony 
+!!计划升级适配星河版
 
